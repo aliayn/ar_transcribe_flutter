@@ -1,0 +1,16 @@
+targets:
+  $default:
+    builders:
+      get_it_injector_gen:
+        generate_for:
+          include:
+            - lib/**/*.dart
+          exclude:
+            - lib/**/*.freezed.dart
+            - lib/**/*.g.dart
+        options:
+          auto_register: false
+          register_as_implementation: true
+          ignore_for_file:
+            - type=lint
+            - unused_import
