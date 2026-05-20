@@ -1,0 +1,9 @@
+{
+  "appTitle": "AR Transcribe",
+  "realtimeTitle": "نسخ فوري",
+  "realtimeDescription": "تحدث بشكل طبيعي. يتم التقاط الصوت على شكل مقاطع ثم يُنسخ دون اتصال باستخدام Vosk؛ بينما تستخدم المعاينة المباشرة STT على الجهاز.",
+  "languageLabel": "اللغة",
+  "chunkDurationLabel": "مدة المقطع",
+  "startTranscribing": "ابدأ النسخ",
+  "routeNotFound": "المسار غير موجود"
+}

@@ -1,0 +1,30 @@
+{
+  "appTitle": "AR Transcribe",
+  "@appTitle": {
+    "description": "Application title"
+  },
+  "realtimeTitle": "Real-time transcription",
+  "@realtimeTitle": {
+    "description": "Card title describing the main feature"
+  },
+  "realtimeDescription": "Speak naturally. Audio is captured in chunks and transcribed offline with Vosk; live preview uses on-device STT.",
+  "@realtimeDescription": {
+    "description": "Short description of how transcription works"
+  },
+  "languageLabel": "Language",
+  "@languageLabel": {
+    "description": "Label for language selection"
+  },
+  "chunkDurationLabel": "Chunk duration",
+  "@chunkDurationLabel": {
+    "description": "Label for selecting chunk duration"
+  },
+  "startTranscribing": "Start Transcribing",
+  "@startTranscribing": {
+    "description": "Primary CTA button label"
+  },
+  "routeNotFound": "Route not found",
+  "@routeNotFound": {
+    "description": "Fallback text when navigation fails and no error is available"
+  }
+}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ar_transcribe/gen_l10n/app_localizations.dart';
 
 import '../../core/di/injection.dart';
 import '../../features/history/presentation/cubit/history_cubit.dart';
@@ -40,7 +41,7 @@ final GoRouter appRouter = GoRouter(
     backgroundColor: Colors.black,
     body: Center(
       child: Text(
-        state.error?.toString() ?? 'Route not found',
+        state.error?.toString() ?? AppLocalizations.of(context)!.routeNotFound,
         style: const TextStyle(color: Colors.white70),
       ),
     ),
