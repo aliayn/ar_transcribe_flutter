@@ -1,73 +1,69 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it_injector/get_it_injector.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../../core/utils/locale_mapper.dart';
-import '../../../settings/domain/entities/app_settings.dart';
+import '../../../../core/config/feature_flags.dart';
+import '../../../../core/utils/translation_language.dart';
 import '../../domain/entities/transcribe_session.dart';
 import '../../domain/entities/transcript_segment.dart';
-import '../../domain/usecases/dispose_transcription_resources.dart';
-import '../../domain/usecases/has_microphone_permission.dart';
+import '../../domain/repositories/transcription_repository.dart';
 import '../../domain/usecases/save_session.dart';
-import '../../domain/usecases/start_preview.dart';
-import '../../domain/usecases/start_recording_chunk.dart';
-import '../../domain/usecases/stop_preview.dart';
-import '../../domain/usecases/stop_recording_chunk.dart';
-import '../../domain/usecases/transcribe_wav_chunk.dart';
 import 'transcribe_event.dart';
 import 'transcribe_state.dart';
 
 @factory
 class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
   TranscribeBloc({
-    required HasMicrophonePermission hasMicrophonePermission,
-    required StartPreview startPreview,
-    required StopPreview stopPreview,
-    required StartRecordingChunk startRecordingChunk,
-    required StopRecordingChunk stopRecordingChunk,
-    required TranscribeWavChunk transcribeWavChunk,
+    required TranscriptionRepository transcriptionRepository,
     required SaveSession saveSession,
-    required DisposeTranscriptionResources disposeTranscriptionResources,
-  })  : _hasMicrophonePermission = hasMicrophonePermission,
-        _startPreview = startPreview,
-        _stopPreview = stopPreview,
-        _startRecordingChunk = startRecordingChunk,
-        _stopRecordingChunk = stopRecordingChunk,
-        _transcribeWavChunk = transcribeWavChunk,
+  })  : _transcriptionRepository = transcriptionRepository,
         _saveSession = saveSession,
-        _disposeTranscriptionResources = disposeTranscriptionResources,
         super(const TranscribeState()) {
     on<TranscribeStarted>(_onStarted);
-    on<TranscribeLivePreviewUpdated>(_onPreview);
-    on<TranscribeChunkTimerFired>(_onChunkTimer);
-    on<TranscribeVoskSegmentAdded>(_onVoskSegment);
+    on<TranscribeConnectionFailed>(_onConnectionFailed);
+    on<TranscribeTranscriptReceived>(_onTranscriptReceived);
+    on<TranscribeTranslationReceived>(_onTranslationReceived);
+    on<TranscribeDisplayModeChanged>(_onDisplayModeChanged);
     on<TranscribeStopped>(_onStopped);
     on<TranscribeReset>(_onReset);
   }
 
-  final HasMicrophonePermission _hasMicrophonePermission;
-  final StartPreview _startPreview;
-  final StopPreview _stopPreview;
-  final StartRecordingChunk _startRecordingChunk;
-  final StopRecordingChunk _stopRecordingChunk;
-  final TranscribeWavChunk _transcribeWavChunk;
+  final TranscriptionRepository _transcriptionRepository;
   final SaveSession _saveSession;
-  final DisposeTranscriptionResources _disposeTranscriptionResources;
   final _uuid = const Uuid();
 
-  AppSettings? _activeSettings;
-  Timer? _chunkTimer;
+  String? _targetLanguageLabel;
+  bool _tornDown = false;
+
+  void _safeAdd(TranscribeEvent event) {
+    if (_tornDown) return;
+    try {
+      add(event);
+    } on StateError {
+      // Bloc closing.
+    }
+  }
 
   Future<void> _onStarted(
     TranscribeStarted event,
     Emitter<TranscribeState> emit,
   ) async {
-    _activeSettings = event.settings;
+    _targetLanguageLabel =
+        TranslationLanguage.labelForCode(event.settings.language);
 
-    final hasPermission = await _hasMicrophonePermission();
+    if (!_transcriptionRepository.hasValidApiKeys) {
+      emit(state.copyWith(
+        status: SessionStatus.error,
+        errorMessage: FeatureFlags.geminiTranslationEnabled
+            ? 'Add DEEPGRAM_API_KEY and GEMINI_API_KEY to the .env file in the project root.'
+            : 'Add DEEPGRAM_API_KEY to the .env file in the project root.',
+      ));
+      return;
+    }
+
+    final hasPermission = await _transcriptionRepository.hasMicrophonePermission();
     if (!hasPermission) {
       emit(state.copyWith(
         status: SessionStatus.error,
@@ -82,121 +78,162 @@ class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
       language: event.settings.language,
     );
 
-    emit(state.copyWith(status: SessionStatus.recording, session: session));
+    emit(state.copyWith(
+      status: SessionStatus.recording,
+      session: session,
+      isConnected: true,
+      livePreviewText: '',
+      errorMessage: null,
+    ));
 
-    await _startPreview(
-      localeId: LocaleMapper.toSpeechLocale(event.settings.language),
-      onPartial: (text) => add(TranscribeEvent.livePreviewUpdated(text)),
-    );
-
-    await _startRecordingChunk();
-    _scheduleChunkTimer();
+    // Do not await here — a long-lived WebSocket/mic stream would block
+    // TranscribeStopped and make stop/close buttons appear dead.
+    unawaited(_connectLiveTranscription());
   }
 
-  void _onPreview(
-    TranscribeLivePreviewUpdated event,
+  Future<void> _connectLiveTranscription() async {
+    try {
+      await _transcriptionRepository.startLiveTranscription(
+        onTranscript: (text, isFinal) {
+          _safeAdd(TranscribeEvent.transcriptReceived(text, isFinal));
+        },
+      );
+    } catch (error) {
+      _safeAdd(TranscribeEvent.connectionFailed(error.toString()));
+    }
+  }
+
+  void _onConnectionFailed(
+    TranscribeConnectionFailed event,
     Emitter<TranscribeState> emit,
   ) {
-    emit(state.copyWith(livePreviewText: event.text));
+    emit(state.copyWith(
+      status: SessionStatus.error,
+      isConnected: false,
+      errorMessage: event.message,
+    ));
   }
 
-  void _scheduleChunkTimer() {
-    _chunkTimer?.cancel();
-    final seconds = _activeSettings?.chunkSeconds ?? 8;
-    _chunkTimer = Timer(Duration(seconds: seconds), () {
-      add(const TranscribeEvent.chunkTimerFired());
-    });
-  }
-
-  Future<void> _onChunkTimer(
-    TranscribeChunkTimerFired event,
+  Future<void> _onTranscriptReceived(
+    TranscribeTranscriptReceived event,
     Emitter<TranscribeState> emit,
   ) async {
-    if (state.status != SessionStatus.recording) return;
-
-    final wavFile = await _stopRecordingChunk();
-    if (wavFile != null && await wavFile.length() > 1000) {
-      unawaited(_transcribeChunkInBackground(wavFile));
+    if (!event.isFinal) {
+      emit(state.copyWith(livePreviewText: event.text));
+      return;
     }
 
-    if (state.status == SessionStatus.recording) {
-      await _startRecordingChunk();
-      _scheduleChunkTimer();
-    }
-  }
-
-  Future<void> _transcribeChunkInBackground(File wavFile) async {
-    try {
-      final text = await _transcribeWavChunk(wavFile);
-      if (text.isNotEmpty) add(TranscribeEvent.voskSegmentAdded(text));
-    } finally {
-      if (await wavFile.exists()) await wavFile.delete();
-    }
-  }
-
-  Future<void> _onVoskSegment(
-    TranscribeVoskSegmentAdded event,
-    Emitter<TranscribeState> emit,
-  ) async {
     final session = state.session;
     if (session == null) return;
+
+    final text = event.text.trim();
+    if (text.isEmpty) return;
 
     final updated = session.copyWith(
       segments: [
         ...session.segments,
         TranscriptSegment(
           id: _uuid.v4(),
-          text: event.text,
+          text: text,
           timestamp: DateTime.now(),
-          source: SegmentSource.vosk,
+          source: SegmentSource.deepgram,
         ),
       ],
     );
 
     emit(state.copyWith(session: updated, livePreviewText: ''));
-    await _saveSession(updated);
+    unawaited(_saveSession(updated));
+    if (FeatureFlags.geminiTranslationEnabled) {
+      unawaited(_translateInBackground(text));
+    }
+  }
+
+  Future<void> _translateInBackground(String sourceText) async {
+    try {
+      final label = _targetLanguageLabel ?? 'English';
+      final translated = await _transcriptionRepository.translate(
+        text: sourceText,
+        targetLanguageLabel: label,
+      );
+      if (translated.isNotEmpty) {
+        _safeAdd(TranscribeEvent.translationReceived(translated));
+      }
+    } catch (_) {
+      // Translation failures are non-fatal; transcript still visible.
+    }
+  }
+
+  Future<void> _onTranslationReceived(
+    TranscribeTranslationReceived event,
+    Emitter<TranscribeState> emit,
+  ) async {
+    final session = state.session;
+    if (session == null) return;
+
+    final text = event.text.trim();
+    if (text.isEmpty) return;
+
+    final updated = session.copyWith(
+      segments: [
+        ...session.segments,
+        TranscriptSegment(
+          id: _uuid.v4(),
+          text: text,
+          timestamp: DateTime.now(),
+          source: SegmentSource.translation,
+        ),
+      ],
+    );
+
+    emit(state.copyWith(session: updated));
+    unawaited(_saveSession(updated));
+  }
+
+  void _onDisplayModeChanged(
+    TranscribeDisplayModeChanged event,
+    Emitter<TranscribeState> emit,
+  ) {
+    emit(state.copyWith(displayMode: event.mode));
   }
 
   Future<void> _onStopped(
     TranscribeStopped event,
     Emitter<TranscribeState> emit,
   ) async {
-    _chunkTimer?.cancel();
-    await _stopPreview();
+    if (!emit.isDone) {
+      emit(state.copyWith(
+        status: SessionStatus.processing,
+        isConnected: false,
+        livePreviewText: '',
+      ));
+    }
 
-    final wavFile = await _stopRecordingChunk();
+    await _transcriptionRepository.stopLiveTranscription();
+    if (_tornDown || emit.isDone) return;
+
     final current = state.session;
     if (current == null) {
-      emit(state.copyWith(status: SessionStatus.idle, livePreviewText: ''));
+      emit(state.copyWith(
+        status: SessionStatus.idle,
+        isConnected: false,
+        livePreviewText: '',
+        errorMessage: null,
+      ));
       return;
     }
 
-    var session = current.copyWith(endedAt: DateTime.now());
-    emit(state.copyWith(status: SessionStatus.processing, session: session));
+    final session = current.copyWith(endedAt: DateTime.now());
+    emit(state.copyWith(
+      status: SessionStatus.idle,
+      session: session,
+      isConnected: false,
+      livePreviewText: '',
+      errorMessage: null,
+    ));
 
-    if (wavFile != null && await wavFile.length() > 1000) {
-      final text = await _transcribeWavChunk(wavFile);
-      if (text.isNotEmpty) {
-        session = session.copyWith(
-          segments: [
-            ...session.segments,
-            TranscriptSegment(
-              id: _uuid.v4(),
-              text: text,
-              timestamp: DateTime.now(),
-              source: SegmentSource.vosk,
-            ),
-          ],
-        );
-      }
-      if (await wavFile.exists()) await wavFile.delete();
-    }
-
-    if (session.fullText.isNotEmpty) {
+    if (session.fullText.isNotEmpty || session.translationText.isNotEmpty) {
       await _saveSession(session);
     }
-
-    emit(state.copyWith(status: SessionStatus.idle, session: session, livePreviewText: ''));
   }
 
   void _onReset(TranscribeReset event, Emitter<TranscribeState> emit) {
@@ -205,8 +242,8 @@ class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
 
   @override
   Future<void> close() async {
-    _chunkTimer?.cancel();
-    await _disposeTranscriptionResources();
+    _tornDown = true;
+    await _transcriptionRepository.dispose();
     return super.close();
   }
 }

@@ -1,9 +1,9 @@
 {
   "appTitle": "آر ترنسکرایب",
   "realtimeTitle": "رونویسی لحظه‌ای",
-  "realtimeDescription": "طبیعی صحبت کنید. صدا به قطعه‌های کوتاه تقسیم می‌شود و با Vosk به‌صورت آفلاین رونویسی می‌شود؛ پیش‌نمایش زنده از STT دستگاه استفاده می‌کند.",
-  "languageLabel": "زبان",
-  "chunkDurationLabel": "مدت قطعه",
+  "realtimeDescription": "دوربین را به صفحه یوتیوب یا خبر بگیرید. زیرنویس انگلیسی زنده (Deepgram) و ترجمه (Gemini) روی تصویر نمایش داده می‌شود. کلیدهای API را در .env قرار دهید.",
+  "languageLabel": "زبان ترجمه",
+  "transcriptChipLabel": "EN",
   "startTranscribing": "شروع رونویسی",
   "routeNotFound": "مسیر پیدا نشد"
 }

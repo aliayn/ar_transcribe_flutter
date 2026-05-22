@@ -1,10 +1,6 @@
-/// App name "AR Transcribe" refers to augmented-reality-style overlay UI, not Arabic.
+/// App name "AR Transcribe" refers to augmented-reality-style overlay UI.
 abstract final class AppConstants {
-  static const defaultLanguageCode = 'en';
-
-  /// Offline final transcription uses this English Vosk model.
-  static const voskModelAsset = 'assets/models/vosk-model-small-en-us-0.15.zip';
-  static const voskSampleRateHz = 16000;
+  static const defaultLanguageCode = 'fa';
 
   static const List<Map<String, String>> supportedLanguages = [
     {'code': 'en', 'label': 'English (US)'},

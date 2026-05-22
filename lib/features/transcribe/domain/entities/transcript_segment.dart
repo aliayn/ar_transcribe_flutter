@@ -3,7 +3,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'transcript_segment.freezed.dart';
 part 'transcript_segment.g.dart';
 
-enum SegmentSource { vosk, preview }
+enum SegmentSource {
+  /// Final phrase from Deepgram (English / source audio).
+  deepgram,
+
+  /// Gemini translation of the matching phrase.
+  translation,
+}
 
 @freezed
 class TranscriptSegment with _$TranscriptSegment {

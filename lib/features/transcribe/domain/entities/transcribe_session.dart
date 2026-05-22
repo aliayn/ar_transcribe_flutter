@@ -18,7 +18,13 @@ class TranscribeSession with _$TranscribeSession {
   }) = _TranscribeSession;
 
   String get fullText => segments
-      .where((segment) => segment.source == SegmentSource.vosk)
+      .where((segment) => segment.source == SegmentSource.deepgram)
+      .map((segment) => segment.text.trim())
+      .where((text) => text.isNotEmpty)
+      .join(' ');
+
+  String get translationText => segments
+      .where((segment) => segment.source == SegmentSource.translation)
       .map((segment) => segment.text.trim())
       .where((text) => text.isNotEmpty)
       .join(' ');

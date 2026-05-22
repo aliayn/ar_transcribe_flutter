@@ -16,13 +16,13 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get realtimeDescription =>
-      'طبیعی صحبت کنید. صدا به قطعه‌های کوتاه تقسیم می‌شود و با Vosk به‌صورت آفلاین رونویسی می‌شود؛ پیش‌نمایش زنده از STT دستگاه استفاده می‌کند.';
+      'دوربین را به صفحه یوتیوب یا خبر بگیرید. زیرنویس انگلیسی زنده (Deepgram) و ترجمه (Gemini) روی تصویر نمایش داده می‌شود. کلیدهای API را در .env قرار دهید.';
 
   @override
-  String get languageLabel => 'زبان';
+  String get languageLabel => 'زبان ترجمه';
 
   @override
-  String get chunkDurationLabel => 'مدت قطعه';
+  String get transcriptChipLabel => 'EN';
 
   @override
   String get startTranscribing => 'شروع رونویسی';

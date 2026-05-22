@@ -1,9 +1,9 @@
 {
   "appTitle": "AR Transcribe",
   "realtimeTitle": "نسخ فوري",
-  "realtimeDescription": "تحدث بشكل طبيعي. يتم التقاط الصوت على شكل مقاطع ثم يُنسخ دون اتصال باستخدام Vosk؛ بينما تستخدم المعاينة المباشرة STT على الجهاز.",
-  "languageLabel": "اللغة",
-  "chunkDurationLabel": "مدة المقطع",
+  "realtimeDescription": "وجّه الكاميرا نحو شاشة يوتيوب أو الأخبار. تظهر ترجمة حية (Deepgram) وترجمة (Gemini) كطبقة AR. أضف مفاتيح API في .env.",
+  "languageLabel": "لغة الترجمة",
+  "transcriptChipLabel": "EN",
   "startTranscribing": "ابدأ النسخ",
   "routeNotFound": "المسار غير موجود"
 }

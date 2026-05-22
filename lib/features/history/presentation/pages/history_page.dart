@@ -111,7 +111,21 @@ class _SessionCard extends StatelessWidget {
               height: 1.5,
             ),
           ),
-          if (session.fullText.isNotEmpty) ...[
+          if (session.translationText.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Text(
+              session.translationText,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: Colors.white54,
+                fontSize: 13,
+                height: 1.45,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ],
+          if (session.fullText.isNotEmpty || session.translationText.isNotEmpty) ...[
             const SizedBox(height: 12),
             Row(
               children: [
@@ -130,7 +144,13 @@ class _SessionCard extends StatelessWidget {
                   icon: const Icon(Icons.share, size: 16),
                   label: const Text('Share'),
                   style: TextButton.styleFrom(foregroundColor: Colors.white54),
-                  onPressed: () => Share.share(session.fullText),
+                  onPressed: () {
+                    final text = [
+                      if (session.fullText.isNotEmpty) session.fullText,
+                      if (session.translationText.isNotEmpty) session.translationText,
+                    ].join('\n\n');
+                    Share.share(text);
+                  },
                 ),
                 const Spacer(),
                 IconButton(

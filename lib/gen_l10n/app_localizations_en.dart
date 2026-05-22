@@ -16,13 +16,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get realtimeDescription =>
-      'Speak naturally. Audio is captured in chunks and transcribed offline with Vosk; live preview uses on-device STT.';
+      'Point your camera at a YouTube or news screen. Live English captions (Deepgram) and translation (Gemini) appear as an AR overlay. Add API keys in .env.';
 
   @override
-  String get languageLabel => 'Language';
+  String get languageLabel => 'Translation language';
 
   @override
-  String get chunkDurationLabel => 'Chunk duration';
+  String get transcriptChipLabel => 'EN';
 
   @override
   String get startTranscribing => 'Start Transcribing';

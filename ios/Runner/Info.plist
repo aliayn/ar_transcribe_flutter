@@ -25,9 +25,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>AR Transcribe needs the microphone to transcribe your speech in real time.</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>AR Transcribe uses on-device speech recognition for live preview text.</string>
+	<string>AR Transcribe needs the microphone to capture audio from your surroundings for live transcription.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>AR Transcribe uses the camera so you can point at a screen while reading live captions.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

@@ -1,5 +1,5 @@
 name: ar_transcribe
-description: Real-time AR speech transcription powered by Vosk (offline)
+description: Real-time AR speech transcription with Deepgram STT and Gemini translation
 publish_to: "none"
 version: 1.0.0+1
 
@@ -12,15 +12,16 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  # Audio recording
+  # Environment / API keys
+  flutter_dotenv: ^5.2.1
+
+  # Real-time cloud STT + translation (ar-games/ar-transcribe architecture)
+  web_socket_channel: ^3.0.1
+  google_generative_ai: ^0.4.6
+
+  # Microphone PCM stream + AR camera
   record: ^5.1.2
-  just_audio: ^0.9.40
-
-  # On-device live STT preview
-  speech_to_text: ^7.3.0
-
-  # Offline final transcription (Vosk)
-  vosk_flutter_service: ^0.1.1
+  camera: ^0.11.0+2
 
   # State management
   flutter_bloc: ^8.1.6
@@ -58,14 +59,11 @@ dev_dependencies:
   get_it_injector_gen: ^0.5.6
 
 dependency_overrides:
-  # record_linux 0.7.2 is missing newer platform-interface APIs (e.g. startStream),
-  # which breaks compilation even when targeting Android (because all plugin Dart
-  # sources are compiled). Force a newer linux implementation.
   record_linux: 1.3.0
 
 flutter:
   generate: true
   uses-material-design: true
   assets:
-    - assets/models/vosk-model-small-en-us-0.15.zip
+    - .env
     - assets/fonts/

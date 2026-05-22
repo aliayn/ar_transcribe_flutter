@@ -1,49 +1,53 @@
-import 'dart:io';
-
 import 'package:get_it_injector/get_it_injector.dart';
 
+import '../../../../core/config/env_config.dart';
 import '../../domain/repositories/transcription_repository.dart';
-import '../datasources/audio_recorder_data_source.dart';
-import '../datasources/speech_preview_data_source.dart';
-import '../datasources/vosk_data_source.dart';
+import '../datasources/deepgram_data_source.dart';
+import '../datasources/gemini_translation_data_source.dart';
+import '../datasources/pcm_audio_stream_data_source.dart';
 
 @lazySingleton
 class TranscriptionRepositoryImpl implements TranscriptionRepository {
   TranscriptionRepositoryImpl(
-    this._audioRecorder,
-    this._speechPreview,
-    this._vosk,
+    this._deepgram,
+    this._gemini,
+    this._pcmStream,
   );
 
-  final AudioRecorderDataSource _audioRecorder;
-  final SpeechPreviewDataSource _speechPreview;
-  final VoskDataSource _vosk;
+  final DeepgramDataSource _deepgram;
+  final GeminiTranslationDataSource _gemini;
+  final PcmAudioStreamDataSource _pcmStream;
 
   @override
-  Future<bool> hasMicrophonePermission() => _audioRecorder.hasPermission();
+  bool get hasValidApiKeys => EnvConfig.isConfigured;
 
   @override
-  Future<void> startChunk() => _audioRecorder.startChunk();
+  Future<bool> hasMicrophonePermission() => _pcmStream.hasPermission();
 
   @override
-  Future<File?> stopChunk() => _audioRecorder.stopChunk();
+  Future<void> startLiveTranscription({
+    required void Function(String transcript, bool isFinal) onTranscript,
+  }) async {
+    await _deepgram.connect(onTranscript: onTranscript);
+    await _pcmStream.start(_deepgram.sendAudio);
+  }
 
   @override
-  Future<void> startPreview({
-    required String localeId,
-    required void Function(String text) onPartial,
+  Future<String> translate({
+    required String text,
+    required String targetLanguageLabel,
   }) =>
-      _speechPreview.startListening(localeId: localeId, onPartial: onPartial);
+      _gemini.translate(text: text, targetLanguageLabel: targetLanguageLabel);
 
   @override
-  Future<void> stopPreview() => _speechPreview.stop();
-
-  @override
-  Future<String> transcribeChunk(File wavFile) => _vosk.transcribe(wavFile);
+  Future<void> stopLiveTranscription() async {
+    await _pcmStream.stop();
+    await _deepgram.disconnect();
+  }
 
   @override
   Future<void> dispose() async {
-    await _audioRecorder.dispose();
-    _speechPreview.dispose();
+    await stopLiveTranscription();
+    await _pcmStream.dispose();
   }
 }

@@ -24,8 +24,8 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: '/transcribe',
-      builder: (context, state) => BlocProvider(
-        create: (_) => getIt<TranscribeBloc>(),
+      builder: (context, state) => BlocProvider.value(
+        value: getIt<TranscribeBloc>(),
         child: const TranscribePage(),
       ),
     ),

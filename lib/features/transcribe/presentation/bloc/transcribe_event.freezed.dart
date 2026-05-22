@@ -19,9 +19,10 @@ mixin _$TranscribeEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppSettings settings) started,
-    required TResult Function(String text) livePreviewUpdated,
-    required TResult Function() chunkTimerFired,
-    required TResult Function(String text) voskSegmentAdded,
+    required TResult Function(String message) connectionFailed,
+    required TResult Function(String text, bool isFinal) transcriptReceived,
+    required TResult Function(String text) translationReceived,
+    required TResult Function(ArDisplayMode mode) displayModeChanged,
     required TResult Function() stopped,
     required TResult Function() reset,
   }) =>
@@ -29,9 +30,10 @@ mixin _$TranscribeEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppSettings settings)? started,
-    TResult? Function(String text)? livePreviewUpdated,
-    TResult? Function()? chunkTimerFired,
-    TResult? Function(String text)? voskSegmentAdded,
+    TResult? Function(String message)? connectionFailed,
+    TResult? Function(String text, bool isFinal)? transcriptReceived,
+    TResult? Function(String text)? translationReceived,
+    TResult? Function(ArDisplayMode mode)? displayModeChanged,
     TResult? Function()? stopped,
     TResult? Function()? reset,
   }) =>
@@ -39,9 +41,10 @@ mixin _$TranscribeEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppSettings settings)? started,
-    TResult Function(String text)? livePreviewUpdated,
-    TResult Function()? chunkTimerFired,
-    TResult Function(String text)? voskSegmentAdded,
+    TResult Function(String message)? connectionFailed,
+    TResult Function(String text, bool isFinal)? transcriptReceived,
+    TResult Function(String text)? translationReceived,
+    TResult Function(ArDisplayMode mode)? displayModeChanged,
     TResult Function()? stopped,
     TResult Function()? reset,
     required TResult orElse(),
@@ -50,11 +53,14 @@ mixin _$TranscribeEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(TranscribeStarted value) started,
-    required TResult Function(TranscribeLivePreviewUpdated value)
-        livePreviewUpdated,
-    required TResult Function(TranscribeChunkTimerFired value) chunkTimerFired,
-    required TResult Function(TranscribeVoskSegmentAdded value)
-        voskSegmentAdded,
+    required TResult Function(TranscribeConnectionFailed value)
+        connectionFailed,
+    required TResult Function(TranscribeTranscriptReceived value)
+        transcriptReceived,
+    required TResult Function(TranscribeTranslationReceived value)
+        translationReceived,
+    required TResult Function(TranscribeDisplayModeChanged value)
+        displayModeChanged,
     required TResult Function(TranscribeStopped value) stopped,
     required TResult Function(TranscribeReset value) reset,
   }) =>
@@ -62,9 +68,10 @@ mixin _$TranscribeEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(TranscribeStarted value)? started,
-    TResult? Function(TranscribeLivePreviewUpdated value)? livePreviewUpdated,
-    TResult? Function(TranscribeChunkTimerFired value)? chunkTimerFired,
-    TResult? Function(TranscribeVoskSegmentAdded value)? voskSegmentAdded,
+    TResult? Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult? Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult? Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult? Function(TranscribeDisplayModeChanged value)? displayModeChanged,
     TResult? Function(TranscribeStopped value)? stopped,
     TResult? Function(TranscribeReset value)? reset,
   }) =>
@@ -72,9 +79,10 @@ mixin _$TranscribeEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(TranscribeStarted value)? started,
-    TResult Function(TranscribeLivePreviewUpdated value)? livePreviewUpdated,
-    TResult Function(TranscribeChunkTimerFired value)? chunkTimerFired,
-    TResult Function(TranscribeVoskSegmentAdded value)? voskSegmentAdded,
+    TResult Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult Function(TranscribeDisplayModeChanged value)? displayModeChanged,
     TResult Function(TranscribeStopped value)? stopped,
     TResult Function(TranscribeReset value)? reset,
     required TResult orElse(),
@@ -186,9 +194,10 @@ class _$TranscribeStartedImpl implements TranscribeStarted {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppSettings settings) started,
-    required TResult Function(String text) livePreviewUpdated,
-    required TResult Function() chunkTimerFired,
-    required TResult Function(String text) voskSegmentAdded,
+    required TResult Function(String message) connectionFailed,
+    required TResult Function(String text, bool isFinal) transcriptReceived,
+    required TResult Function(String text) translationReceived,
+    required TResult Function(ArDisplayMode mode) displayModeChanged,
     required TResult Function() stopped,
     required TResult Function() reset,
   }) {
@@ -199,9 +208,10 @@ class _$TranscribeStartedImpl implements TranscribeStarted {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppSettings settings)? started,
-    TResult? Function(String text)? livePreviewUpdated,
-    TResult? Function()? chunkTimerFired,
-    TResult? Function(String text)? voskSegmentAdded,
+    TResult? Function(String message)? connectionFailed,
+    TResult? Function(String text, bool isFinal)? transcriptReceived,
+    TResult? Function(String text)? translationReceived,
+    TResult? Function(ArDisplayMode mode)? displayModeChanged,
     TResult? Function()? stopped,
     TResult? Function()? reset,
   }) {
@@ -212,9 +222,10 @@ class _$TranscribeStartedImpl implements TranscribeStarted {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppSettings settings)? started,
-    TResult Function(String text)? livePreviewUpdated,
-    TResult Function()? chunkTimerFired,
-    TResult Function(String text)? voskSegmentAdded,
+    TResult Function(String message)? connectionFailed,
+    TResult Function(String text, bool isFinal)? transcriptReceived,
+    TResult Function(String text)? translationReceived,
+    TResult Function(ArDisplayMode mode)? displayModeChanged,
     TResult Function()? stopped,
     TResult Function()? reset,
     required TResult orElse(),
@@ -229,11 +240,14 @@ class _$TranscribeStartedImpl implements TranscribeStarted {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(TranscribeStarted value) started,
-    required TResult Function(TranscribeLivePreviewUpdated value)
-        livePreviewUpdated,
-    required TResult Function(TranscribeChunkTimerFired value) chunkTimerFired,
-    required TResult Function(TranscribeVoskSegmentAdded value)
-        voskSegmentAdded,
+    required TResult Function(TranscribeConnectionFailed value)
+        connectionFailed,
+    required TResult Function(TranscribeTranscriptReceived value)
+        transcriptReceived,
+    required TResult Function(TranscribeTranslationReceived value)
+        translationReceived,
+    required TResult Function(TranscribeDisplayModeChanged value)
+        displayModeChanged,
     required TResult Function(TranscribeStopped value) stopped,
     required TResult Function(TranscribeReset value) reset,
   }) {
@@ -244,9 +258,10 @@ class _$TranscribeStartedImpl implements TranscribeStarted {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(TranscribeStarted value)? started,
-    TResult? Function(TranscribeLivePreviewUpdated value)? livePreviewUpdated,
-    TResult? Function(TranscribeChunkTimerFired value)? chunkTimerFired,
-    TResult? Function(TranscribeVoskSegmentAdded value)? voskSegmentAdded,
+    TResult? Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult? Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult? Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult? Function(TranscribeDisplayModeChanged value)? displayModeChanged,
     TResult? Function(TranscribeStopped value)? stopped,
     TResult? Function(TranscribeReset value)? reset,
   }) {
@@ -257,9 +272,10 @@ class _$TranscribeStartedImpl implements TranscribeStarted {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(TranscribeStarted value)? started,
-    TResult Function(TranscribeLivePreviewUpdated value)? livePreviewUpdated,
-    TResult Function(TranscribeChunkTimerFired value)? chunkTimerFired,
-    TResult Function(TranscribeVoskSegmentAdded value)? voskSegmentAdded,
+    TResult Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult Function(TranscribeDisplayModeChanged value)? displayModeChanged,
     TResult Function(TranscribeStopped value)? stopped,
     TResult Function(TranscribeReset value)? reset,
     required TResult orElse(),
@@ -285,23 +301,23 @@ abstract class TranscribeStarted implements TranscribeEvent {
 }
 
 /// @nodoc
-abstract class _$$TranscribeLivePreviewUpdatedImplCopyWith<$Res> {
-  factory _$$TranscribeLivePreviewUpdatedImplCopyWith(
-          _$TranscribeLivePreviewUpdatedImpl value,
-          $Res Function(_$TranscribeLivePreviewUpdatedImpl) then) =
-      __$$TranscribeLivePreviewUpdatedImplCopyWithImpl<$Res>;
+abstract class _$$TranscribeConnectionFailedImplCopyWith<$Res> {
+  factory _$$TranscribeConnectionFailedImplCopyWith(
+          _$TranscribeConnectionFailedImpl value,
+          $Res Function(_$TranscribeConnectionFailedImpl) then) =
+      __$$TranscribeConnectionFailedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String text});
+  $Res call({String message});
 }
 
 /// @nodoc
-class __$$TranscribeLivePreviewUpdatedImplCopyWithImpl<$Res>
+class __$$TranscribeConnectionFailedImplCopyWithImpl<$Res>
     extends _$TranscribeEventCopyWithImpl<$Res,
-        _$TranscribeLivePreviewUpdatedImpl>
-    implements _$$TranscribeLivePreviewUpdatedImplCopyWith<$Res> {
-  __$$TranscribeLivePreviewUpdatedImplCopyWithImpl(
-      _$TranscribeLivePreviewUpdatedImpl _value,
-      $Res Function(_$TranscribeLivePreviewUpdatedImpl) _then)
+        _$TranscribeConnectionFailedImpl>
+    implements _$$TranscribeConnectionFailedImplCopyWith<$Res> {
+  __$$TranscribeConnectionFailedImplCopyWithImpl(
+      _$TranscribeConnectionFailedImpl _value,
+      $Res Function(_$TranscribeConnectionFailedImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of TranscribeEvent
@@ -309,12 +325,12 @@ class __$$TranscribeLivePreviewUpdatedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? text = null,
+    Object? message = null,
   }) {
-    return _then(_$TranscribeLivePreviewUpdatedImpl(
-      null == text
-          ? _value.text
-          : text // ignore: cast_nullable_to_non_nullable
+    return _then(_$TranscribeConnectionFailedImpl(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -322,78 +338,79 @@ class __$$TranscribeLivePreviewUpdatedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$TranscribeLivePreviewUpdatedImpl
-    implements TranscribeLivePreviewUpdated {
-  const _$TranscribeLivePreviewUpdatedImpl(this.text);
+class _$TranscribeConnectionFailedImpl implements TranscribeConnectionFailed {
+  const _$TranscribeConnectionFailedImpl(this.message);
 
   @override
-  final String text;
+  final String message;
 
   @override
   String toString() {
-    return 'TranscribeEvent.livePreviewUpdated(text: $text)';
+    return 'TranscribeEvent.connectionFailed(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TranscribeLivePreviewUpdatedImpl &&
-            (identical(other.text, text) || other.text == text));
+            other is _$TranscribeConnectionFailedImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, text);
+  int get hashCode => Object.hash(runtimeType, message);
 
   /// Create a copy of TranscribeEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$TranscribeLivePreviewUpdatedImplCopyWith<
-          _$TranscribeLivePreviewUpdatedImpl>
-      get copyWith => __$$TranscribeLivePreviewUpdatedImplCopyWithImpl<
-          _$TranscribeLivePreviewUpdatedImpl>(this, _$identity);
+  _$$TranscribeConnectionFailedImplCopyWith<_$TranscribeConnectionFailedImpl>
+      get copyWith => __$$TranscribeConnectionFailedImplCopyWithImpl<
+          _$TranscribeConnectionFailedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppSettings settings) started,
-    required TResult Function(String text) livePreviewUpdated,
-    required TResult Function() chunkTimerFired,
-    required TResult Function(String text) voskSegmentAdded,
+    required TResult Function(String message) connectionFailed,
+    required TResult Function(String text, bool isFinal) transcriptReceived,
+    required TResult Function(String text) translationReceived,
+    required TResult Function(ArDisplayMode mode) displayModeChanged,
     required TResult Function() stopped,
     required TResult Function() reset,
   }) {
-    return livePreviewUpdated(text);
+    return connectionFailed(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppSettings settings)? started,
-    TResult? Function(String text)? livePreviewUpdated,
-    TResult? Function()? chunkTimerFired,
-    TResult? Function(String text)? voskSegmentAdded,
+    TResult? Function(String message)? connectionFailed,
+    TResult? Function(String text, bool isFinal)? transcriptReceived,
+    TResult? Function(String text)? translationReceived,
+    TResult? Function(ArDisplayMode mode)? displayModeChanged,
     TResult? Function()? stopped,
     TResult? Function()? reset,
   }) {
-    return livePreviewUpdated?.call(text);
+    return connectionFailed?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppSettings settings)? started,
-    TResult Function(String text)? livePreviewUpdated,
-    TResult Function()? chunkTimerFired,
-    TResult Function(String text)? voskSegmentAdded,
+    TResult Function(String message)? connectionFailed,
+    TResult Function(String text, bool isFinal)? transcriptReceived,
+    TResult Function(String text)? translationReceived,
+    TResult Function(ArDisplayMode mode)? displayModeChanged,
     TResult Function()? stopped,
     TResult Function()? reset,
     required TResult orElse(),
   }) {
-    if (livePreviewUpdated != null) {
-      return livePreviewUpdated(text);
+    if (connectionFailed != null) {
+      return connectionFailed(message);
     }
     return orElse();
   }
@@ -402,142 +419,187 @@ class _$TranscribeLivePreviewUpdatedImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(TranscribeStarted value) started,
-    required TResult Function(TranscribeLivePreviewUpdated value)
-        livePreviewUpdated,
-    required TResult Function(TranscribeChunkTimerFired value) chunkTimerFired,
-    required TResult Function(TranscribeVoskSegmentAdded value)
-        voskSegmentAdded,
+    required TResult Function(TranscribeConnectionFailed value)
+        connectionFailed,
+    required TResult Function(TranscribeTranscriptReceived value)
+        transcriptReceived,
+    required TResult Function(TranscribeTranslationReceived value)
+        translationReceived,
+    required TResult Function(TranscribeDisplayModeChanged value)
+        displayModeChanged,
     required TResult Function(TranscribeStopped value) stopped,
     required TResult Function(TranscribeReset value) reset,
   }) {
-    return livePreviewUpdated(this);
+    return connectionFailed(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(TranscribeStarted value)? started,
-    TResult? Function(TranscribeLivePreviewUpdated value)? livePreviewUpdated,
-    TResult? Function(TranscribeChunkTimerFired value)? chunkTimerFired,
-    TResult? Function(TranscribeVoskSegmentAdded value)? voskSegmentAdded,
+    TResult? Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult? Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult? Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult? Function(TranscribeDisplayModeChanged value)? displayModeChanged,
     TResult? Function(TranscribeStopped value)? stopped,
     TResult? Function(TranscribeReset value)? reset,
   }) {
-    return livePreviewUpdated?.call(this);
+    return connectionFailed?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(TranscribeStarted value)? started,
-    TResult Function(TranscribeLivePreviewUpdated value)? livePreviewUpdated,
-    TResult Function(TranscribeChunkTimerFired value)? chunkTimerFired,
-    TResult Function(TranscribeVoskSegmentAdded value)? voskSegmentAdded,
+    TResult Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult Function(TranscribeDisplayModeChanged value)? displayModeChanged,
     TResult Function(TranscribeStopped value)? stopped,
     TResult Function(TranscribeReset value)? reset,
     required TResult orElse(),
   }) {
-    if (livePreviewUpdated != null) {
-      return livePreviewUpdated(this);
+    if (connectionFailed != null) {
+      return connectionFailed(this);
     }
     return orElse();
   }
 }
 
-abstract class TranscribeLivePreviewUpdated implements TranscribeEvent {
-  const factory TranscribeLivePreviewUpdated(final String text) =
-      _$TranscribeLivePreviewUpdatedImpl;
+abstract class TranscribeConnectionFailed implements TranscribeEvent {
+  const factory TranscribeConnectionFailed(final String message) =
+      _$TranscribeConnectionFailedImpl;
 
-  String get text;
+  String get message;
 
   /// Create a copy of TranscribeEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$TranscribeLivePreviewUpdatedImplCopyWith<
-          _$TranscribeLivePreviewUpdatedImpl>
+  _$$TranscribeConnectionFailedImplCopyWith<_$TranscribeConnectionFailedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$TranscribeChunkTimerFiredImplCopyWith<$Res> {
-  factory _$$TranscribeChunkTimerFiredImplCopyWith(
-          _$TranscribeChunkTimerFiredImpl value,
-          $Res Function(_$TranscribeChunkTimerFiredImpl) then) =
-      __$$TranscribeChunkTimerFiredImplCopyWithImpl<$Res>;
+abstract class _$$TranscribeTranscriptReceivedImplCopyWith<$Res> {
+  factory _$$TranscribeTranscriptReceivedImplCopyWith(
+          _$TranscribeTranscriptReceivedImpl value,
+          $Res Function(_$TranscribeTranscriptReceivedImpl) then) =
+      __$$TranscribeTranscriptReceivedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String text, bool isFinal});
 }
 
 /// @nodoc
-class __$$TranscribeChunkTimerFiredImplCopyWithImpl<$Res>
-    extends _$TranscribeEventCopyWithImpl<$Res, _$TranscribeChunkTimerFiredImpl>
-    implements _$$TranscribeChunkTimerFiredImplCopyWith<$Res> {
-  __$$TranscribeChunkTimerFiredImplCopyWithImpl(
-      _$TranscribeChunkTimerFiredImpl _value,
-      $Res Function(_$TranscribeChunkTimerFiredImpl) _then)
+class __$$TranscribeTranscriptReceivedImplCopyWithImpl<$Res>
+    extends _$TranscribeEventCopyWithImpl<$Res,
+        _$TranscribeTranscriptReceivedImpl>
+    implements _$$TranscribeTranscriptReceivedImplCopyWith<$Res> {
+  __$$TranscribeTranscriptReceivedImplCopyWithImpl(
+      _$TranscribeTranscriptReceivedImpl _value,
+      $Res Function(_$TranscribeTranscriptReceivedImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of TranscribeEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? text = null,
+    Object? isFinal = null,
+  }) {
+    return _then(_$TranscribeTranscriptReceivedImpl(
+      null == text
+          ? _value.text
+          : text // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == isFinal
+          ? _value.isFinal
+          : isFinal // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$TranscribeChunkTimerFiredImpl implements TranscribeChunkTimerFired {
-  const _$TranscribeChunkTimerFiredImpl();
+class _$TranscribeTranscriptReceivedImpl
+    implements TranscribeTranscriptReceived {
+  const _$TranscribeTranscriptReceivedImpl(this.text, this.isFinal);
+
+  @override
+  final String text;
+  @override
+  final bool isFinal;
 
   @override
   String toString() {
-    return 'TranscribeEvent.chunkTimerFired()';
+    return 'TranscribeEvent.transcriptReceived(text: $text, isFinal: $isFinal)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TranscribeChunkTimerFiredImpl);
+            other is _$TranscribeTranscriptReceivedImpl &&
+            (identical(other.text, text) || other.text == text) &&
+            (identical(other.isFinal, isFinal) || other.isFinal == isFinal));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, text, isFinal);
+
+  /// Create a copy of TranscribeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TranscribeTranscriptReceivedImplCopyWith<
+          _$TranscribeTranscriptReceivedImpl>
+      get copyWith => __$$TranscribeTranscriptReceivedImplCopyWithImpl<
+          _$TranscribeTranscriptReceivedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppSettings settings) started,
-    required TResult Function(String text) livePreviewUpdated,
-    required TResult Function() chunkTimerFired,
-    required TResult Function(String text) voskSegmentAdded,
+    required TResult Function(String message) connectionFailed,
+    required TResult Function(String text, bool isFinal) transcriptReceived,
+    required TResult Function(String text) translationReceived,
+    required TResult Function(ArDisplayMode mode) displayModeChanged,
     required TResult Function() stopped,
     required TResult Function() reset,
   }) {
-    return chunkTimerFired();
+    return transcriptReceived(text, isFinal);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppSettings settings)? started,
-    TResult? Function(String text)? livePreviewUpdated,
-    TResult? Function()? chunkTimerFired,
-    TResult? Function(String text)? voskSegmentAdded,
+    TResult? Function(String message)? connectionFailed,
+    TResult? Function(String text, bool isFinal)? transcriptReceived,
+    TResult? Function(String text)? translationReceived,
+    TResult? Function(ArDisplayMode mode)? displayModeChanged,
     TResult? Function()? stopped,
     TResult? Function()? reset,
   }) {
-    return chunkTimerFired?.call();
+    return transcriptReceived?.call(text, isFinal);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppSettings settings)? started,
-    TResult Function(String text)? livePreviewUpdated,
-    TResult Function()? chunkTimerFired,
-    TResult Function(String text)? voskSegmentAdded,
+    TResult Function(String message)? connectionFailed,
+    TResult Function(String text, bool isFinal)? transcriptReceived,
+    TResult Function(String text)? translationReceived,
+    TResult Function(ArDisplayMode mode)? displayModeChanged,
     TResult Function()? stopped,
     TResult Function()? reset,
     required TResult orElse(),
   }) {
-    if (chunkTimerFired != null) {
-      return chunkTimerFired();
+    if (transcriptReceived != null) {
+      return transcriptReceived(text, isFinal);
     }
     return orElse();
   }
@@ -546,70 +608,87 @@ class _$TranscribeChunkTimerFiredImpl implements TranscribeChunkTimerFired {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(TranscribeStarted value) started,
-    required TResult Function(TranscribeLivePreviewUpdated value)
-        livePreviewUpdated,
-    required TResult Function(TranscribeChunkTimerFired value) chunkTimerFired,
-    required TResult Function(TranscribeVoskSegmentAdded value)
-        voskSegmentAdded,
+    required TResult Function(TranscribeConnectionFailed value)
+        connectionFailed,
+    required TResult Function(TranscribeTranscriptReceived value)
+        transcriptReceived,
+    required TResult Function(TranscribeTranslationReceived value)
+        translationReceived,
+    required TResult Function(TranscribeDisplayModeChanged value)
+        displayModeChanged,
     required TResult Function(TranscribeStopped value) stopped,
     required TResult Function(TranscribeReset value) reset,
   }) {
-    return chunkTimerFired(this);
+    return transcriptReceived(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(TranscribeStarted value)? started,
-    TResult? Function(TranscribeLivePreviewUpdated value)? livePreviewUpdated,
-    TResult? Function(TranscribeChunkTimerFired value)? chunkTimerFired,
-    TResult? Function(TranscribeVoskSegmentAdded value)? voskSegmentAdded,
+    TResult? Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult? Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult? Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult? Function(TranscribeDisplayModeChanged value)? displayModeChanged,
     TResult? Function(TranscribeStopped value)? stopped,
     TResult? Function(TranscribeReset value)? reset,
   }) {
-    return chunkTimerFired?.call(this);
+    return transcriptReceived?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(TranscribeStarted value)? started,
-    TResult Function(TranscribeLivePreviewUpdated value)? livePreviewUpdated,
-    TResult Function(TranscribeChunkTimerFired value)? chunkTimerFired,
-    TResult Function(TranscribeVoskSegmentAdded value)? voskSegmentAdded,
+    TResult Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult Function(TranscribeDisplayModeChanged value)? displayModeChanged,
     TResult Function(TranscribeStopped value)? stopped,
     TResult Function(TranscribeReset value)? reset,
     required TResult orElse(),
   }) {
-    if (chunkTimerFired != null) {
-      return chunkTimerFired(this);
+    if (transcriptReceived != null) {
+      return transcriptReceived(this);
     }
     return orElse();
   }
 }
 
-abstract class TranscribeChunkTimerFired implements TranscribeEvent {
-  const factory TranscribeChunkTimerFired() = _$TranscribeChunkTimerFiredImpl;
+abstract class TranscribeTranscriptReceived implements TranscribeEvent {
+  const factory TranscribeTranscriptReceived(
+          final String text, final bool isFinal) =
+      _$TranscribeTranscriptReceivedImpl;
+
+  String get text;
+  bool get isFinal;
+
+  /// Create a copy of TranscribeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$TranscribeTranscriptReceivedImplCopyWith<
+          _$TranscribeTranscriptReceivedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$TranscribeVoskSegmentAddedImplCopyWith<$Res> {
-  factory _$$TranscribeVoskSegmentAddedImplCopyWith(
-          _$TranscribeVoskSegmentAddedImpl value,
-          $Res Function(_$TranscribeVoskSegmentAddedImpl) then) =
-      __$$TranscribeVoskSegmentAddedImplCopyWithImpl<$Res>;
+abstract class _$$TranscribeTranslationReceivedImplCopyWith<$Res> {
+  factory _$$TranscribeTranslationReceivedImplCopyWith(
+          _$TranscribeTranslationReceivedImpl value,
+          $Res Function(_$TranscribeTranslationReceivedImpl) then) =
+      __$$TranscribeTranslationReceivedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String text});
 }
 
 /// @nodoc
-class __$$TranscribeVoskSegmentAddedImplCopyWithImpl<$Res>
+class __$$TranscribeTranslationReceivedImplCopyWithImpl<$Res>
     extends _$TranscribeEventCopyWithImpl<$Res,
-        _$TranscribeVoskSegmentAddedImpl>
-    implements _$$TranscribeVoskSegmentAddedImplCopyWith<$Res> {
-  __$$TranscribeVoskSegmentAddedImplCopyWithImpl(
-      _$TranscribeVoskSegmentAddedImpl _value,
-      $Res Function(_$TranscribeVoskSegmentAddedImpl) _then)
+        _$TranscribeTranslationReceivedImpl>
+    implements _$$TranscribeTranslationReceivedImplCopyWith<$Res> {
+  __$$TranscribeTranslationReceivedImplCopyWithImpl(
+      _$TranscribeTranslationReceivedImpl _value,
+      $Res Function(_$TranscribeTranslationReceivedImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of TranscribeEvent
@@ -619,7 +698,7 @@ class __$$TranscribeVoskSegmentAddedImplCopyWithImpl<$Res>
   $Res call({
     Object? text = null,
   }) {
-    return _then(_$TranscribeVoskSegmentAddedImpl(
+    return _then(_$TranscribeTranslationReceivedImpl(
       null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -630,22 +709,23 @@ class __$$TranscribeVoskSegmentAddedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$TranscribeVoskSegmentAddedImpl implements TranscribeVoskSegmentAdded {
-  const _$TranscribeVoskSegmentAddedImpl(this.text);
+class _$TranscribeTranslationReceivedImpl
+    implements TranscribeTranslationReceived {
+  const _$TranscribeTranslationReceivedImpl(this.text);
 
   @override
   final String text;
 
   @override
   String toString() {
-    return 'TranscribeEvent.voskSegmentAdded(text: $text)';
+    return 'TranscribeEvent.translationReceived(text: $text)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TranscribeVoskSegmentAddedImpl &&
+            other is _$TranscribeTranslationReceivedImpl &&
             (identical(other.text, text) || other.text == text));
   }
 
@@ -657,49 +737,53 @@ class _$TranscribeVoskSegmentAddedImpl implements TranscribeVoskSegmentAdded {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$TranscribeVoskSegmentAddedImplCopyWith<_$TranscribeVoskSegmentAddedImpl>
-      get copyWith => __$$TranscribeVoskSegmentAddedImplCopyWithImpl<
-          _$TranscribeVoskSegmentAddedImpl>(this, _$identity);
+  _$$TranscribeTranslationReceivedImplCopyWith<
+          _$TranscribeTranslationReceivedImpl>
+      get copyWith => __$$TranscribeTranslationReceivedImplCopyWithImpl<
+          _$TranscribeTranslationReceivedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppSettings settings) started,
-    required TResult Function(String text) livePreviewUpdated,
-    required TResult Function() chunkTimerFired,
-    required TResult Function(String text) voskSegmentAdded,
+    required TResult Function(String message) connectionFailed,
+    required TResult Function(String text, bool isFinal) transcriptReceived,
+    required TResult Function(String text) translationReceived,
+    required TResult Function(ArDisplayMode mode) displayModeChanged,
     required TResult Function() stopped,
     required TResult Function() reset,
   }) {
-    return voskSegmentAdded(text);
+    return translationReceived(text);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppSettings settings)? started,
-    TResult? Function(String text)? livePreviewUpdated,
-    TResult? Function()? chunkTimerFired,
-    TResult? Function(String text)? voskSegmentAdded,
+    TResult? Function(String message)? connectionFailed,
+    TResult? Function(String text, bool isFinal)? transcriptReceived,
+    TResult? Function(String text)? translationReceived,
+    TResult? Function(ArDisplayMode mode)? displayModeChanged,
     TResult? Function()? stopped,
     TResult? Function()? reset,
   }) {
-    return voskSegmentAdded?.call(text);
+    return translationReceived?.call(text);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppSettings settings)? started,
-    TResult Function(String text)? livePreviewUpdated,
-    TResult Function()? chunkTimerFired,
-    TResult Function(String text)? voskSegmentAdded,
+    TResult Function(String message)? connectionFailed,
+    TResult Function(String text, bool isFinal)? transcriptReceived,
+    TResult Function(String text)? translationReceived,
+    TResult Function(ArDisplayMode mode)? displayModeChanged,
     TResult Function()? stopped,
     TResult Function()? reset,
     required TResult orElse(),
   }) {
-    if (voskSegmentAdded != null) {
-      return voskSegmentAdded(text);
+    if (translationReceived != null) {
+      return translationReceived(text);
     }
     return orElse();
   }
@@ -708,58 +792,246 @@ class _$TranscribeVoskSegmentAddedImpl implements TranscribeVoskSegmentAdded {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(TranscribeStarted value) started,
-    required TResult Function(TranscribeLivePreviewUpdated value)
-        livePreviewUpdated,
-    required TResult Function(TranscribeChunkTimerFired value) chunkTimerFired,
-    required TResult Function(TranscribeVoskSegmentAdded value)
-        voskSegmentAdded,
+    required TResult Function(TranscribeConnectionFailed value)
+        connectionFailed,
+    required TResult Function(TranscribeTranscriptReceived value)
+        transcriptReceived,
+    required TResult Function(TranscribeTranslationReceived value)
+        translationReceived,
+    required TResult Function(TranscribeDisplayModeChanged value)
+        displayModeChanged,
     required TResult Function(TranscribeStopped value) stopped,
     required TResult Function(TranscribeReset value) reset,
   }) {
-    return voskSegmentAdded(this);
+    return translationReceived(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(TranscribeStarted value)? started,
-    TResult? Function(TranscribeLivePreviewUpdated value)? livePreviewUpdated,
-    TResult? Function(TranscribeChunkTimerFired value)? chunkTimerFired,
-    TResult? Function(TranscribeVoskSegmentAdded value)? voskSegmentAdded,
+    TResult? Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult? Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult? Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult? Function(TranscribeDisplayModeChanged value)? displayModeChanged,
     TResult? Function(TranscribeStopped value)? stopped,
     TResult? Function(TranscribeReset value)? reset,
   }) {
-    return voskSegmentAdded?.call(this);
+    return translationReceived?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(TranscribeStarted value)? started,
-    TResult Function(TranscribeLivePreviewUpdated value)? livePreviewUpdated,
-    TResult Function(TranscribeChunkTimerFired value)? chunkTimerFired,
-    TResult Function(TranscribeVoskSegmentAdded value)? voskSegmentAdded,
+    TResult Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult Function(TranscribeDisplayModeChanged value)? displayModeChanged,
     TResult Function(TranscribeStopped value)? stopped,
     TResult Function(TranscribeReset value)? reset,
     required TResult orElse(),
   }) {
-    if (voskSegmentAdded != null) {
-      return voskSegmentAdded(this);
+    if (translationReceived != null) {
+      return translationReceived(this);
     }
     return orElse();
   }
 }
 
-abstract class TranscribeVoskSegmentAdded implements TranscribeEvent {
-  const factory TranscribeVoskSegmentAdded(final String text) =
-      _$TranscribeVoskSegmentAddedImpl;
+abstract class TranscribeTranslationReceived implements TranscribeEvent {
+  const factory TranscribeTranslationReceived(final String text) =
+      _$TranscribeTranslationReceivedImpl;
 
   String get text;
 
   /// Create a copy of TranscribeEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$TranscribeVoskSegmentAddedImplCopyWith<_$TranscribeVoskSegmentAddedImpl>
+  _$$TranscribeTranslationReceivedImplCopyWith<
+          _$TranscribeTranslationReceivedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$TranscribeDisplayModeChangedImplCopyWith<$Res> {
+  factory _$$TranscribeDisplayModeChangedImplCopyWith(
+          _$TranscribeDisplayModeChangedImpl value,
+          $Res Function(_$TranscribeDisplayModeChangedImpl) then) =
+      __$$TranscribeDisplayModeChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ArDisplayMode mode});
+}
+
+/// @nodoc
+class __$$TranscribeDisplayModeChangedImplCopyWithImpl<$Res>
+    extends _$TranscribeEventCopyWithImpl<$Res,
+        _$TranscribeDisplayModeChangedImpl>
+    implements _$$TranscribeDisplayModeChangedImplCopyWith<$Res> {
+  __$$TranscribeDisplayModeChangedImplCopyWithImpl(
+      _$TranscribeDisplayModeChangedImpl _value,
+      $Res Function(_$TranscribeDisplayModeChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TranscribeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? mode = null,
+  }) {
+    return _then(_$TranscribeDisplayModeChangedImpl(
+      null == mode
+          ? _value.mode
+          : mode // ignore: cast_nullable_to_non_nullable
+              as ArDisplayMode,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$TranscribeDisplayModeChangedImpl
+    implements TranscribeDisplayModeChanged {
+  const _$TranscribeDisplayModeChangedImpl(this.mode);
+
+  @override
+  final ArDisplayMode mode;
+
+  @override
+  String toString() {
+    return 'TranscribeEvent.displayModeChanged(mode: $mode)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TranscribeDisplayModeChangedImpl &&
+            (identical(other.mode, mode) || other.mode == mode));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, mode);
+
+  /// Create a copy of TranscribeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TranscribeDisplayModeChangedImplCopyWith<
+          _$TranscribeDisplayModeChangedImpl>
+      get copyWith => __$$TranscribeDisplayModeChangedImplCopyWithImpl<
+          _$TranscribeDisplayModeChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(AppSettings settings) started,
+    required TResult Function(String message) connectionFailed,
+    required TResult Function(String text, bool isFinal) transcriptReceived,
+    required TResult Function(String text) translationReceived,
+    required TResult Function(ArDisplayMode mode) displayModeChanged,
+    required TResult Function() stopped,
+    required TResult Function() reset,
+  }) {
+    return displayModeChanged(mode);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(AppSettings settings)? started,
+    TResult? Function(String message)? connectionFailed,
+    TResult? Function(String text, bool isFinal)? transcriptReceived,
+    TResult? Function(String text)? translationReceived,
+    TResult? Function(ArDisplayMode mode)? displayModeChanged,
+    TResult? Function()? stopped,
+    TResult? Function()? reset,
+  }) {
+    return displayModeChanged?.call(mode);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(AppSettings settings)? started,
+    TResult Function(String message)? connectionFailed,
+    TResult Function(String text, bool isFinal)? transcriptReceived,
+    TResult Function(String text)? translationReceived,
+    TResult Function(ArDisplayMode mode)? displayModeChanged,
+    TResult Function()? stopped,
+    TResult Function()? reset,
+    required TResult orElse(),
+  }) {
+    if (displayModeChanged != null) {
+      return displayModeChanged(mode);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(TranscribeStarted value) started,
+    required TResult Function(TranscribeConnectionFailed value)
+        connectionFailed,
+    required TResult Function(TranscribeTranscriptReceived value)
+        transcriptReceived,
+    required TResult Function(TranscribeTranslationReceived value)
+        translationReceived,
+    required TResult Function(TranscribeDisplayModeChanged value)
+        displayModeChanged,
+    required TResult Function(TranscribeStopped value) stopped,
+    required TResult Function(TranscribeReset value) reset,
+  }) {
+    return displayModeChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(TranscribeStarted value)? started,
+    TResult? Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult? Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult? Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult? Function(TranscribeDisplayModeChanged value)? displayModeChanged,
+    TResult? Function(TranscribeStopped value)? stopped,
+    TResult? Function(TranscribeReset value)? reset,
+  }) {
+    return displayModeChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(TranscribeStarted value)? started,
+    TResult Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult Function(TranscribeDisplayModeChanged value)? displayModeChanged,
+    TResult Function(TranscribeStopped value)? stopped,
+    TResult Function(TranscribeReset value)? reset,
+    required TResult orElse(),
+  }) {
+    if (displayModeChanged != null) {
+      return displayModeChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class TranscribeDisplayModeChanged implements TranscribeEvent {
+  const factory TranscribeDisplayModeChanged(final ArDisplayMode mode) =
+      _$TranscribeDisplayModeChangedImpl;
+
+  ArDisplayMode get mode;
+
+  /// Create a copy of TranscribeEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$TranscribeDisplayModeChangedImplCopyWith<
+          _$TranscribeDisplayModeChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -805,9 +1077,10 @@ class _$TranscribeStoppedImpl implements TranscribeStopped {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppSettings settings) started,
-    required TResult Function(String text) livePreviewUpdated,
-    required TResult Function() chunkTimerFired,
-    required TResult Function(String text) voskSegmentAdded,
+    required TResult Function(String message) connectionFailed,
+    required TResult Function(String text, bool isFinal) transcriptReceived,
+    required TResult Function(String text) translationReceived,
+    required TResult Function(ArDisplayMode mode) displayModeChanged,
     required TResult Function() stopped,
     required TResult Function() reset,
   }) {
@@ -818,9 +1091,10 @@ class _$TranscribeStoppedImpl implements TranscribeStopped {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppSettings settings)? started,
-    TResult? Function(String text)? livePreviewUpdated,
-    TResult? Function()? chunkTimerFired,
-    TResult? Function(String text)? voskSegmentAdded,
+    TResult? Function(String message)? connectionFailed,
+    TResult? Function(String text, bool isFinal)? transcriptReceived,
+    TResult? Function(String text)? translationReceived,
+    TResult? Function(ArDisplayMode mode)? displayModeChanged,
     TResult? Function()? stopped,
     TResult? Function()? reset,
   }) {
@@ -831,9 +1105,10 @@ class _$TranscribeStoppedImpl implements TranscribeStopped {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppSettings settings)? started,
-    TResult Function(String text)? livePreviewUpdated,
-    TResult Function()? chunkTimerFired,
-    TResult Function(String text)? voskSegmentAdded,
+    TResult Function(String message)? connectionFailed,
+    TResult Function(String text, bool isFinal)? transcriptReceived,
+    TResult Function(String text)? translationReceived,
+    TResult Function(ArDisplayMode mode)? displayModeChanged,
     TResult Function()? stopped,
     TResult Function()? reset,
     required TResult orElse(),
@@ -848,11 +1123,14 @@ class _$TranscribeStoppedImpl implements TranscribeStopped {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(TranscribeStarted value) started,
-    required TResult Function(TranscribeLivePreviewUpdated value)
-        livePreviewUpdated,
-    required TResult Function(TranscribeChunkTimerFired value) chunkTimerFired,
-    required TResult Function(TranscribeVoskSegmentAdded value)
-        voskSegmentAdded,
+    required TResult Function(TranscribeConnectionFailed value)
+        connectionFailed,
+    required TResult Function(TranscribeTranscriptReceived value)
+        transcriptReceived,
+    required TResult Function(TranscribeTranslationReceived value)
+        translationReceived,
+    required TResult Function(TranscribeDisplayModeChanged value)
+        displayModeChanged,
     required TResult Function(TranscribeStopped value) stopped,
     required TResult Function(TranscribeReset value) reset,
   }) {
@@ -863,9 +1141,10 @@ class _$TranscribeStoppedImpl implements TranscribeStopped {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(TranscribeStarted value)? started,
-    TResult? Function(TranscribeLivePreviewUpdated value)? livePreviewUpdated,
-    TResult? Function(TranscribeChunkTimerFired value)? chunkTimerFired,
-    TResult? Function(TranscribeVoskSegmentAdded value)? voskSegmentAdded,
+    TResult? Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult? Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult? Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult? Function(TranscribeDisplayModeChanged value)? displayModeChanged,
     TResult? Function(TranscribeStopped value)? stopped,
     TResult? Function(TranscribeReset value)? reset,
   }) {
@@ -876,9 +1155,10 @@ class _$TranscribeStoppedImpl implements TranscribeStopped {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(TranscribeStarted value)? started,
-    TResult Function(TranscribeLivePreviewUpdated value)? livePreviewUpdated,
-    TResult Function(TranscribeChunkTimerFired value)? chunkTimerFired,
-    TResult Function(TranscribeVoskSegmentAdded value)? voskSegmentAdded,
+    TResult Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult Function(TranscribeDisplayModeChanged value)? displayModeChanged,
     TResult Function(TranscribeStopped value)? stopped,
     TResult Function(TranscribeReset value)? reset,
     required TResult orElse(),
@@ -936,9 +1216,10 @@ class _$TranscribeResetImpl implements TranscribeReset {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppSettings settings) started,
-    required TResult Function(String text) livePreviewUpdated,
-    required TResult Function() chunkTimerFired,
-    required TResult Function(String text) voskSegmentAdded,
+    required TResult Function(String message) connectionFailed,
+    required TResult Function(String text, bool isFinal) transcriptReceived,
+    required TResult Function(String text) translationReceived,
+    required TResult Function(ArDisplayMode mode) displayModeChanged,
     required TResult Function() stopped,
     required TResult Function() reset,
   }) {
@@ -949,9 +1230,10 @@ class _$TranscribeResetImpl implements TranscribeReset {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppSettings settings)? started,
-    TResult? Function(String text)? livePreviewUpdated,
-    TResult? Function()? chunkTimerFired,
-    TResult? Function(String text)? voskSegmentAdded,
+    TResult? Function(String message)? connectionFailed,
+    TResult? Function(String text, bool isFinal)? transcriptReceived,
+    TResult? Function(String text)? translationReceived,
+    TResult? Function(ArDisplayMode mode)? displayModeChanged,
     TResult? Function()? stopped,
     TResult? Function()? reset,
   }) {
@@ -962,9 +1244,10 @@ class _$TranscribeResetImpl implements TranscribeReset {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppSettings settings)? started,
-    TResult Function(String text)? livePreviewUpdated,
-    TResult Function()? chunkTimerFired,
-    TResult Function(String text)? voskSegmentAdded,
+    TResult Function(String message)? connectionFailed,
+    TResult Function(String text, bool isFinal)? transcriptReceived,
+    TResult Function(String text)? translationReceived,
+    TResult Function(ArDisplayMode mode)? displayModeChanged,
     TResult Function()? stopped,
     TResult Function()? reset,
     required TResult orElse(),
@@ -979,11 +1262,14 @@ class _$TranscribeResetImpl implements TranscribeReset {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(TranscribeStarted value) started,
-    required TResult Function(TranscribeLivePreviewUpdated value)
-        livePreviewUpdated,
-    required TResult Function(TranscribeChunkTimerFired value) chunkTimerFired,
-    required TResult Function(TranscribeVoskSegmentAdded value)
-        voskSegmentAdded,
+    required TResult Function(TranscribeConnectionFailed value)
+        connectionFailed,
+    required TResult Function(TranscribeTranscriptReceived value)
+        transcriptReceived,
+    required TResult Function(TranscribeTranslationReceived value)
+        translationReceived,
+    required TResult Function(TranscribeDisplayModeChanged value)
+        displayModeChanged,
     required TResult Function(TranscribeStopped value) stopped,
     required TResult Function(TranscribeReset value) reset,
   }) {
@@ -994,9 +1280,10 @@ class _$TranscribeResetImpl implements TranscribeReset {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(TranscribeStarted value)? started,
-    TResult? Function(TranscribeLivePreviewUpdated value)? livePreviewUpdated,
-    TResult? Function(TranscribeChunkTimerFired value)? chunkTimerFired,
-    TResult? Function(TranscribeVoskSegmentAdded value)? voskSegmentAdded,
+    TResult? Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult? Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult? Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult? Function(TranscribeDisplayModeChanged value)? displayModeChanged,
     TResult? Function(TranscribeStopped value)? stopped,
     TResult? Function(TranscribeReset value)? reset,
   }) {
@@ -1007,9 +1294,10 @@ class _$TranscribeResetImpl implements TranscribeReset {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(TranscribeStarted value)? started,
-    TResult Function(TranscribeLivePreviewUpdated value)? livePreviewUpdated,
-    TResult Function(TranscribeChunkTimerFired value)? chunkTimerFired,
-    TResult Function(TranscribeVoskSegmentAdded value)? voskSegmentAdded,
+    TResult Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult Function(TranscribeDisplayModeChanged value)? displayModeChanged,
     TResult Function(TranscribeStopped value)? stopped,
     TResult Function(TranscribeReset value)? reset,
     required TResult orElse(),

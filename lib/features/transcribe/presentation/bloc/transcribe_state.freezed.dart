@@ -19,7 +19,9 @@ mixin _$TranscribeState {
   SessionStatus get status => throw _privateConstructorUsedError;
   TranscribeSession? get session => throw _privateConstructorUsedError;
   String get livePreviewText => throw _privateConstructorUsedError;
+  ArDisplayMode get displayMode => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
+  bool get isConnected => throw _privateConstructorUsedError;
 
   /// Create a copy of TranscribeState
   /// with the given fields replaced by the non-null parameter values.
@@ -38,7 +40,9 @@ abstract class $TranscribeStateCopyWith<$Res> {
       {SessionStatus status,
       TranscribeSession? session,
       String livePreviewText,
-      String? errorMessage});
+      ArDisplayMode displayMode,
+      String? errorMessage,
+      bool isConnected});
 
   $TranscribeSessionCopyWith<$Res>? get session;
 }
@@ -61,7 +65,9 @@ class _$TranscribeStateCopyWithImpl<$Res, $Val extends TranscribeState>
     Object? status = null,
     Object? session = freezed,
     Object? livePreviewText = null,
+    Object? displayMode = null,
     Object? errorMessage = freezed,
+    Object? isConnected = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -76,10 +82,18 @@ class _$TranscribeStateCopyWithImpl<$Res, $Val extends TranscribeState>
           ? _value.livePreviewText
           : livePreviewText // ignore: cast_nullable_to_non_nullable
               as String,
+      displayMode: null == displayMode
+          ? _value.displayMode
+          : displayMode // ignore: cast_nullable_to_non_nullable
+              as ArDisplayMode,
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      isConnected: null == isConnected
+          ? _value.isConnected
+          : isConnected // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -110,7 +124,9 @@ abstract class _$$TranscribeStateImplCopyWith<$Res>
       {SessionStatus status,
       TranscribeSession? session,
       String livePreviewText,
-      String? errorMessage});
+      ArDisplayMode displayMode,
+      String? errorMessage,
+      bool isConnected});
 
   @override
   $TranscribeSessionCopyWith<$Res>? get session;
@@ -132,7 +148,9 @@ class __$$TranscribeStateImplCopyWithImpl<$Res>
     Object? status = null,
     Object? session = freezed,
     Object? livePreviewText = null,
+    Object? displayMode = null,
     Object? errorMessage = freezed,
+    Object? isConnected = null,
   }) {
     return _then(_$TranscribeStateImpl(
       status: null == status
@@ -147,10 +165,18 @@ class __$$TranscribeStateImplCopyWithImpl<$Res>
           ? _value.livePreviewText
           : livePreviewText // ignore: cast_nullable_to_non_nullable
               as String,
+      displayMode: null == displayMode
+          ? _value.displayMode
+          : displayMode // ignore: cast_nullable_to_non_nullable
+              as ArDisplayMode,
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      isConnected: null == isConnected
+          ? _value.isConnected
+          : isConnected // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -162,7 +188,9 @@ class _$TranscribeStateImpl implements _TranscribeState {
       {this.status = SessionStatus.idle,
       this.session,
       this.livePreviewText = '',
-      this.errorMessage});
+      this.displayMode = ArDisplayMode.transcript,
+      this.errorMessage,
+      this.isConnected = false});
 
   @override
   @JsonKey()
@@ -173,11 +201,17 @@ class _$TranscribeStateImpl implements _TranscribeState {
   @JsonKey()
   final String livePreviewText;
   @override
+  @JsonKey()
+  final ArDisplayMode displayMode;
+  @override
   final String? errorMessage;
+  @override
+  @JsonKey()
+  final bool isConnected;
 
   @override
   String toString() {
-    return 'TranscribeState(status: $status, session: $session, livePreviewText: $livePreviewText, errorMessage: $errorMessage)';
+    return 'TranscribeState(status: $status, session: $session, livePreviewText: $livePreviewText, displayMode: $displayMode, errorMessage: $errorMessage, isConnected: $isConnected)';
   }
 
   @override
@@ -189,13 +223,17 @@ class _$TranscribeStateImpl implements _TranscribeState {
             (identical(other.session, session) || other.session == session) &&
             (identical(other.livePreviewText, livePreviewText) ||
                 other.livePreviewText == livePreviewText) &&
+            (identical(other.displayMode, displayMode) ||
+                other.displayMode == displayMode) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.isConnected, isConnected) ||
+                other.isConnected == isConnected));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, status, session, livePreviewText, errorMessage);
+  int get hashCode => Object.hash(runtimeType, status, session, livePreviewText,
+      displayMode, errorMessage, isConnected);
 
   /// Create a copy of TranscribeState
   /// with the given fields replaced by the non-null parameter values.
@@ -212,7 +250,9 @@ abstract class _TranscribeState implements TranscribeState {
       {final SessionStatus status,
       final TranscribeSession? session,
       final String livePreviewText,
-      final String? errorMessage}) = _$TranscribeStateImpl;
+      final ArDisplayMode displayMode,
+      final String? errorMessage,
+      final bool isConnected}) = _$TranscribeStateImpl;
 
   @override
   SessionStatus get status;
@@ -221,7 +261,11 @@ abstract class _TranscribeState implements TranscribeState {
   @override
   String get livePreviewText;
   @override
+  ArDisplayMode get displayMode;
+  @override
   String? get errorMessage;
+  @override
+  bool get isConnected;
 
   /// Create a copy of TranscribeState
   /// with the given fields replaced by the non-null parameter values.

@@ -27,6 +27,6 @@ Map<String, dynamic> _$$TranscriptSegmentImplToJson(
     };
 
 const _$SegmentSourceEnumMap = {
-  SegmentSource.vosk: 'vosk',
-  SegmentSource.preview: 'preview',
+  SegmentSource.deepgram: 'deepgram',
+  SegmentSource.translation: 'translation',
 };

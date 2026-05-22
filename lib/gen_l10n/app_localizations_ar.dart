@@ -16,13 +16,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get realtimeDescription =>
-      'تحدث بشكل طبيعي. يتم التقاط الصوت على شكل مقاطع ثم يُنسخ دون اتصال باستخدام Vosk؛ بينما تستخدم المعاينة المباشرة STT على الجهاز.';
+      'وجّه الكاميرا نحو شاشة يوتيوب أو الأخبار. تظهر ترجمة حية (Deepgram) وترجمة (Gemini) كطبقة AR. أضف مفاتيح API في .env.';
 
   @override
-  String get languageLabel => 'اللغة';
+  String get languageLabel => 'لغة الترجمة';
 
   @override
-  String get chunkDurationLabel => 'مدة المقطع';
+  String get transcriptChipLabel => 'EN';
 
   @override
   String get startTranscribing => 'ابدأ النسخ';

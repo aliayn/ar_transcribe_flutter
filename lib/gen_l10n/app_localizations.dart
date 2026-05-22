@@ -115,20 +115,20 @@ abstract class AppLocalizations {
   /// Short description of how transcription works
   ///
   /// In en, this message translates to:
-  /// **'Speak naturally. Audio is captured in chunks and transcribed offline with Vosk; live preview uses on-device STT.'**
+  /// **'Point your camera at a YouTube or news screen. Live English captions (Deepgram) and translation (Gemini) appear as an AR overlay. Add API keys in .env.'**
   String get realtimeDescription;
 
-  /// Label for language selection
+  /// Target language for Gemini translation
   ///
   /// In en, this message translates to:
-  /// **'Language'**
+  /// **'Translation language'**
   String get languageLabel;
 
-  /// Label for selecting chunk duration
+  /// AR overlay toggle for source transcript
   ///
   /// In en, this message translates to:
-  /// **'Chunk duration'**
-  String get chunkDurationLabel;
+  /// **'EN'**
+  String get transcriptChipLabel;
 
   /// Primary CTA button label
   ///

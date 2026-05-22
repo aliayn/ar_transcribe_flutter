@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ar_transcribe/gen_l10n/app_localizations.dart';
 
+import '../../../../core/config/feature_flags.dart';
 import '../../../../shared/widgets/language_selector.dart';
 import '../../../../ui/core/adaptive_content.dart';
+import '../../../settings/domain/entities/app_settings.dart';
 import '../../../settings/presentation/cubit/settings_cubit.dart';
 import '../../../settings/presentation/cubit/settings_state.dart';
 
@@ -17,6 +19,8 @@ class HomePage extends StatelessWidget {
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
         final settings = state.settings;
+        final isWide =
+            MediaQuery.sizeOf(context).width > largeScreenMinWidth;
 
         return Scaffold(
           backgroundColor: Colors.black,
@@ -36,77 +40,96 @@ class HomePage extends StatelessWidget {
           body: AdaptiveContent(
             child: Padding(
               padding: const EdgeInsets.all(24),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  final isWide = constraints.maxWidth > largeScreenMinWidth;
-
-                  final left = Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const SizedBox(height: 32),
-                      _InfoCard(
-                        title: l10n.realtimeTitle,
-                        description: l10n.realtimeDescription,
-                      ),
-                      const SizedBox(height: 32),
-                      Text(l10n.languageLabel, style: const TextStyle(color: Colors.white70)),
-                      const SizedBox(height: 8),
-                      LanguageSelector(
-                        selected: settings.language,
-                        onChanged: (code) {
-                          context.read<SettingsCubit>().update(settings.copyWith(language: code));
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      _ChunkDurationRow(
-                        label: l10n.chunkDurationLabel,
-                        value: settings.chunkSeconds,
-                        onChanged: (value) {
-                          context.read<SettingsCubit>().update(
-                                settings.copyWith(chunkSeconds: value),
-                              );
-                        },
-                      ),
-                    ],
-                  );
-
-                  final right = Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      if (isWide) const SizedBox(height: 32),
-                      const Spacer(),
-                      _StartButton(
-                        label: l10n.startTranscribing,
-                        onPressed: () => context.push('/transcribe'),
-                      ),
-                      const SizedBox(height: 32),
-                    ],
-                  );
-
-                  if (!isWide) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        left,
-                        right,
-                      ],
-                    );
-                  }
-
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: left),
-                      const SizedBox(width: 24),
-                      SizedBox(width: 280, child: right),
-                    ],
-                  );
+              child: _HomeBody(
+                isWide: isWide,
+                l10n: l10n,
+                settings: settings,
+                onLanguageChanged: (code) {
+                  context.read<SettingsCubit>().update(
+                        settings.copyWith(language: code),
+                      );
                 },
+                onStart: () => context.push('/transcribe'),
               ),
             ),
           ),
         );
       },
+    );
+  }
+}
+
+class _HomeBody extends StatelessWidget {
+  const _HomeBody({
+    required this.isWide,
+    required this.l10n,
+    required this.settings,
+    required this.onLanguageChanged,
+    required this.onStart,
+  });
+
+  final bool isWide;
+  final AppLocalizations l10n;
+  final AppSettings settings;
+  final ValueChanged<String> onLanguageChanged;
+  final VoidCallback onStart;
+
+  @override
+  Widget build(BuildContext context) {
+    final left = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const SizedBox(height: 32),
+        _InfoCard(
+          title: l10n.realtimeTitle,
+          description: l10n.realtimeDescription,
+        ),
+        if (FeatureFlags.geminiTranslationEnabled) ...[
+          const SizedBox(height: 32),
+          Text(l10n.languageLabel, style: const TextStyle(color: Colors.white70)),
+          const SizedBox(height: 8),
+          LanguageSelector(
+            selected: settings.language,
+            onChanged: onLanguageChanged,
+          ),
+        ],
+      ],
+    );
+
+    final startButton = _StartButton(
+      label: l10n.startTranscribing,
+      onPressed: onStart,
+    );
+
+    if (!isWide) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          left,
+          const Spacer(),
+          startButton,
+          const SizedBox(height: 32),
+        ],
+      );
+    }
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(child: left),
+        const SizedBox(width: 24),
+        SizedBox(
+          width: 280,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [startButton],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -146,44 +169,6 @@ class _InfoCard extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _ChunkDurationRow extends StatelessWidget {
-  const _ChunkDurationRow({
-    required this.label,
-    required this.value,
-    required this.onChanged,
-  });
-
-  final String label;
-  final int value;
-  final ValueChanged<int> onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(label, style: const TextStyle(color: Colors.white70)),
-        const Spacer(),
-        DropdownButton<int>(
-          value: value,
-          dropdownColor: const Color(0xFF1A1A2E),
-          style: const TextStyle(color: Colors.cyanAccent),
-          items: [5, 8, 10, 15]
-              .map(
-                (seconds) => DropdownMenuItem(
-                  value: seconds,
-                  child: Text('${seconds}s'),
-                ),
-              )
-              .toList(),
-          onChanged: (v) {
-            if (v != null) onChanged(v);
-          },
-        ),
-      ],
     );
   }
 }

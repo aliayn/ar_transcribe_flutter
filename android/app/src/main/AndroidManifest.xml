@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Microphone access for recording and real-time transcription. -->
+    <!-- Microphone for Deepgram live STT. -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- Camera AR overlay (point at YouTube / screen). -->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <!-- Optional network access for model downloads or connected services. -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -19,6 +21,7 @@
             android:launchMode="singleTop"
             android:taskAffinity=""
             android:theme="@style/LaunchTheme"
+            android:enableOnBackInvokedCallback="true"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
