@@ -78,11 +78,9 @@ class _TranscribePageState extends State<TranscribePage> {
 
       final controller = CameraController(
         back,
-        ResolutionPreset.medium,
+        ResolutionPreset.ultraHigh,
         enableAudio: false,
-        imageFormatGroup: Platform.isIOS
-            ? ImageFormatGroup.bgra8888
-            : ImageFormatGroup.yuv420,
+        imageFormatGroup: Platform.isIOS ? ImageFormatGroup.bgra8888 : ImageFormatGroup.yuv420,
       );
       await controller.initialize();
       if (!mounted) {
@@ -122,17 +120,13 @@ class _TranscribePageState extends State<TranscribePage> {
 
   String _textForMode(TranscribeSession? session, ArDisplayMode mode) {
     if (session == null) return '';
-    return mode == ArDisplayMode.transcript
-        ? session.fullText
-        : session.translationText;
+    return mode == ArDisplayMode.transcript ? session.fullText : session.translationText;
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<TranscribeBloc, TranscribeState>(
-      listenWhen: (previous, current) =>
-          previous.errorMessage != current.errorMessage &&
-          current.errorMessage != null,
+      listenWhen: (previous, current) => previous.errorMessage != current.errorMessage && current.errorMessage != null,
       listener: (context, state) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(state.errorMessage!)),
@@ -142,16 +136,12 @@ class _TranscribePageState extends State<TranscribePage> {
         final l10n = AppLocalizations.of(context)!;
         final settings = context.watch<SettingsCubit>().state.settings;
         const translationEnabled = FeatureFlags.geminiTranslationEnabled;
-        final translationChip = settings.language.isEmpty
-            ? 'TR'
-            : settings.language.toUpperCase();
+        final translationChip = settings.language.isEmpty ? 'TR' : settings.language.toUpperCase();
 
         final isLive = state.status == SessionStatus.recording;
         final canStop = state.status != SessionStatus.idle;
         final session = state.session;
-        final displayMode = translationEnabled
-            ? state.displayMode
-            : ArDisplayMode.transcript;
+        final displayMode = translationEnabled ? state.displayMode : ArDisplayMode.transcript;
         final displayText = _textForMode(session, displayMode);
 
         return PopScope(
@@ -162,56 +152,60 @@ class _TranscribePageState extends State<TranscribePage> {
           },
           child: Scaffold(
             backgroundColor: Colors.black,
-            body: Stack(
-              fit: StackFit.expand,
-              children: [
-                if (_cameraReady && _cameraController != null)
-                  CameraPreview(_cameraController!)
-                else
-                  const ColoredBox(color: Colors.black),
-                IgnorePointer(
-                  child: ArTranscriptOverlay(
-                    segments: session?.segments ?? [],
-                    livePreviewText: state.livePreviewText,
-                    displayMode: displayMode,
-                    isConnected: state.isConnected && isLive,
-                    transcriptChipLabel: l10n.transcriptChipLabel,
-                    translationChipLabel: translationChip,
-                    showTranslationToggle: translationEnabled,
-                    onModeChanged: (mode) => _addBlocEvent(
-                      TranscribeEvent.displayModeChanged(mode),
+            body: SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: Stack(
+                // fit: StackFit.expand,
+                children: [
+                  if (_cameraReady && _cameraController != null)
+                    CameraPreview(_cameraController!)
+                  else
+                    const ColoredBox(color: Colors.black),
+                  SafeArea(
+                    child: IgnorePointer(
+                      child: ArTranscriptOverlay(
+                        segments: session?.segments ?? [],
+                        livePreviewText: state.livePreviewText,
+                        displayMode: displayMode,
+                        isConnected: state.isConnected && isLive,
+                        transcriptChipLabel: l10n.transcriptChipLabel,
+                        translationChipLabel: translationChip,
+                        showTranslationToggle: translationEnabled,
+                        onModeChanged: (mode) => _addBlocEvent(
+                          TranscribeEvent.displayModeChanged(mode),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: SafeArea(
-                    child: _TopBar(
-                      isLive: isLive,
-                      displayText: displayText,
-                      onClose: _stopAndReturn,
-                      onCopy: displayText.isNotEmpty
-                          ? () => _copyAll(displayText)
-                          : null,
-                      onShare: displayText.isNotEmpty
-                          ? () => Share.share(displayText)
-                          : null,
+                  // Align(
+                  //   alignment: AlignmentDirectional.topEnd,
+                  //   child: SafeArea(
+                  //     child: _TopBar(
+                  //       isLive: isLive,
+                  //       displayText: displayText,
+                  //       onClose: _stopAndReturn,
+                  //       onCopy: displayText.isNotEmpty ? () => _copyAll(displayText) : null,
+                  //       onShare: displayText.isNotEmpty ? () => Share.share(displayText) : null,
+                  //     ),
+                  //   ),
+                  // ),
+                  // Replace bottom controls with a back button on the AppBar
+                  Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: SafeArea(
+                      child: AppBar(
+                        backgroundColor: Colors.transparent,
+                        elevation: 0,
+                        leading: IconButton(
+                          icon: const Icon(Icons.arrow_back, color: Colors.white),
+                          onPressed: _stopAndReturn,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: SafeArea(
-                    child: _BottomControls(
-                      canStop: canStop,
-                      hasHistory: (session?.fullText.isNotEmpty ?? false) ||
-                          (session?.translationText.isNotEmpty ?? false),
-                      onStop: _stopAndReturn,
-                      onHistory: () => context.push('/history'),
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
@@ -220,7 +214,7 @@ class _TranscribePageState extends State<TranscribePage> {
   }
 }
 
-class _TopBar extends StatelessWidget {
+class _TopBar extends StatefulWidget {
   const _TopBar({
     required this.isLive,
     required this.displayText,
@@ -236,6 +230,11 @@ class _TopBar extends StatelessWidget {
   final VoidCallback? onShare;
 
   @override
+  State<_TopBar> createState() => _TopBarState();
+}
+
+class _TopBarState extends State<_TopBar> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -247,25 +246,25 @@ class _TopBar extends StatelessWidget {
             height: 10,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: isLive ? Colors.redAccent : Colors.white30,
+              color: widget.isLive ? Colors.redAccent : Colors.white30,
             ),
           ),
           const SizedBox(width: 8),
           Text(
-            isLive ? 'Live' : 'Stopped',
+            widget.isLive ? 'Live' : 'Stopped',
             style: const TextStyle(color: Colors.white70, fontSize: 13),
           ),
-          const Spacer(),
-          if (onCopy != null)
-            IconButton(
-              icon: const Icon(Icons.copy, color: Colors.white60, size: 20),
-              onPressed: onCopy,
-            ),
-          if (onShare != null)
-            IconButton(
-              icon: const Icon(Icons.share, color: Colors.white60, size: 20),
-              onPressed: onShare,
-            ),
+          // const Spacer(),
+          // if (onCopy != null)
+          //   IconButton(
+          //     icon: const Icon(Icons.copy, color: Colors.white60, size: 20),
+          //     onPressed: onCopy,
+          //   ),
+          // if (onShare != null)
+          //   IconButton(
+          //     icon: const Icon(Icons.share, color: Colors.white60, size: 20),
+          //     onPressed: onShare,
+          //   ),
           // IconButton(
           //   icon: const Icon(Icons.close, color: Colors.white60),
           //   onPressed: onClose,
@@ -276,7 +275,7 @@ class _TopBar extends StatelessWidget {
   }
 }
 
-class _BottomControls extends StatelessWidget {
+class _BottomControls extends StatefulWidget {
   const _BottomControls({
     required this.canStop,
     required this.hasHistory,
@@ -290,16 +289,21 @@ class _BottomControls extends StatelessWidget {
   final VoidCallback onHistory;
 
   @override
+  State<_BottomControls> createState() => _BottomControlsState();
+}
+
+class _BottomControlsState extends State<_BottomControls> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 60),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (hasHistory)
+          if (widget.hasHistory)
             IconButton(
               icon: const Icon(Icons.history, color: Colors.white54),
-              onPressed: onHistory,
+              onPressed: widget.onHistory,
             )
           else
             const SizedBox(width: 48),
@@ -307,7 +311,7 @@ class _BottomControls extends StatelessWidget {
           Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: canStop ? onStop : null,
+              onTap: widget.canStop ? widget.onStop : null,
               customBorder: const CircleBorder(),
               child: Container(
                 width: 72,
@@ -315,14 +319,14 @@ class _BottomControls extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: canStop ? Colors.redAccent : Colors.white30,
+                    color: widget.canStop ? Colors.redAccent : Colors.white30,
                     width: 3,
                   ),
                 ),
                 child: Center(
                   child: Icon(
-                    canStop ? Icons.stop_rounded : Icons.mic_none,
-                    color: canStop ? Colors.redAccent : Colors.white30,
+                    widget.canStop ? Icons.stop_rounded : Icons.mic_none,
+                    color: widget.canStop ? Colors.redAccent : Colors.white30,
                     size: 32,
                   ),
                 ),

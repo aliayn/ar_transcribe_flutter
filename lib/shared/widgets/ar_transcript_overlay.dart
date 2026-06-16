@@ -48,8 +48,9 @@ class ArTranscriptOverlay extends StatelessWidget {
     final showLive =
         livePreviewText.isNotEmpty && displayMode == ArDisplayMode.transcript;
 
-    return Stack(
-      children: [
+    return SizedBox.expand(
+      child: Stack(
+        children: [
         Positioned(
           left: 0,
           right: 0,
@@ -114,6 +115,7 @@ class ArTranscriptOverlay extends StatelessWidget {
           ),
         ),
       ],
+      ),
     );
   }
 }
