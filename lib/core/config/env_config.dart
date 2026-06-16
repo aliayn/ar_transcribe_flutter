@@ -1,7 +1,5 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'feature_flags.dart';
-
 /// Loads API keys and model settings from `.env` (see `.env.example`).
 abstract final class EnvConfig {
   static String get deepgramApiKey =>
@@ -28,11 +26,5 @@ abstract final class EnvConfig {
 
   static bool get hasGeminiKey => geminiApiKey.isNotEmpty;
 
-  static bool get isConfigured {
-    if (!hasDeepgramKey) return false;
-    if (FeatureFlags.geminiTranslationEnabled && !hasGeminiKey) {
-      return false;
-    }
-    return true;
-  }
+  static bool get isConfigured => hasDeepgramKey;
 }

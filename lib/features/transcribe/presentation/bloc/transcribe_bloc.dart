@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it_injector/get_it_injector.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../../core/config/feature_flags.dart';
-import '../../../../core/utils/translation_language.dart';
 import '../../domain/entities/transcribe_session.dart';
 import '../../domain/entities/transcript_segment.dart';
 import '../../domain/repositories/transcription_repository.dart';
@@ -25,8 +23,6 @@ class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
     on<TranscribeConnectionEstablished>(_onConnectionEstablished);
     on<TranscribeConnectionFailed>(_onConnectionFailed);
     on<TranscribeTranscriptReceived>(_onTranscriptReceived);
-    on<TranscribeTranslationReceived>(_onTranslationReceived);
-    on<TranscribeDisplayModeChanged>(_onDisplayModeChanged);
     on<TranscribeStopped>(_onStopped);
     on<TranscribeReset>(_onReset);
   }
@@ -35,7 +31,7 @@ class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
   final SaveSession _saveSession;
   final _uuid = const Uuid();
 
-  String? _targetLanguageLabel;
+  String _transcriptionLanguage = 'en-US';
   bool _tornDown = false;
 
   void _safeAdd(TranscribeEvent event) {
@@ -51,15 +47,12 @@ class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
     TranscribeStarted event,
     Emitter<TranscribeState> emit,
   ) async {
-    _targetLanguageLabel =
-        TranslationLanguage.labelForCode(event.settings.language);
+    _transcriptionLanguage = event.settings.language;
 
     if (!_transcriptionRepository.hasValidApiKeys) {
       emit(state.copyWith(
         status: SessionStatus.error,
-        errorMessage: FeatureFlags.geminiTranslationEnabled
-            ? 'Add DEEPGRAM_API_KEY and GEMINI_API_KEY to the .env file in the project root.'
-            : 'Add DEEPGRAM_API_KEY to the .env file in the project root.',
+        errorMessage: 'Add DEEPGRAM_API_KEY to the .env file in the project root.',
       ));
       return;
     }
@@ -87,14 +80,13 @@ class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
       errorMessage: null,
     ));
 
-    // Do not await here — a long-lived WebSocket/mic stream would block
-    // TranscribeStopped and make stop/close buttons appear dead.
     unawaited(_connectLiveTranscription());
   }
 
   Future<void> _connectLiveTranscription() async {
     try {
       await _transcriptionRepository.startLiveTranscription(
+        language: _transcriptionLanguage,
         onTranscript: (text, isFinal) {
           _safeAdd(TranscribeEvent.transcriptReceived(text, isFinal));
         },
@@ -152,57 +144,6 @@ class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
 
     emit(state.copyWith(session: updated, livePreviewText: ''));
     unawaited(_saveSession(updated));
-    if (FeatureFlags.geminiTranslationEnabled) {
-      unawaited(_translateInBackground(text));
-    }
-  }
-
-  Future<void> _translateInBackground(String sourceText) async {
-    try {
-      final label = _targetLanguageLabel ?? 'English';
-      final translated = await _transcriptionRepository.translate(
-        text: sourceText,
-        targetLanguageLabel: label,
-      );
-      if (translated.isNotEmpty) {
-        _safeAdd(TranscribeEvent.translationReceived(translated));
-      }
-    } catch (_) {
-      // Translation failures are non-fatal; transcript still visible.
-    }
-  }
-
-  Future<void> _onTranslationReceived(
-    TranscribeTranslationReceived event,
-    Emitter<TranscribeState> emit,
-  ) async {
-    final session = state.session;
-    if (session == null) return;
-
-    final text = event.text.trim();
-    if (text.isEmpty) return;
-
-    final updated = session.copyWith(
-      segments: [
-        ...session.segments,
-        TranscriptSegment(
-          id: _uuid.v4(),
-          text: text,
-          timestamp: DateTime.now(),
-          source: SegmentSource.translation,
-        ),
-      ],
-    );
-
-    emit(state.copyWith(session: updated));
-    unawaited(_saveSession(updated));
-  }
-
-  void _onDisplayModeChanged(
-    TranscribeDisplayModeChanged event,
-    Emitter<TranscribeState> emit,
-  ) {
-    emit(state.copyWith(displayMode: event.mode));
   }
 
   Future<void> _onStopped(
@@ -240,7 +181,7 @@ class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
       errorMessage: null,
     ));
 
-    if (session.fullText.isNotEmpty || session.translationText.isNotEmpty) {
+    if (session.fullText.isNotEmpty) {
       await _saveSession(session);
     }
   }

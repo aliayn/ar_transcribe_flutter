@@ -6,13 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:ar_transcribe/gen_l10n/app_localizations.dart';
-import 'package:share_plus/share_plus.dart';
 
-import '../../../../core/config/feature_flags.dart';
 import '../../../../shared/widgets/ar_transcript_overlay.dart';
 import '../../../settings/presentation/cubit/settings_cubit.dart';
-import '../../domain/entities/transcribe_session.dart';
 import '../bloc/transcribe_bloc.dart';
 import '../bloc/transcribe_event.dart';
 import '../bloc/transcribe_state.dart';
@@ -118,11 +114,6 @@ class _TranscribePageState extends State<TranscribePage> {
     );
   }
 
-  String _textForMode(TranscribeSession? session, ArDisplayMode mode) {
-    if (session == null) return '';
-    return mode == ArDisplayMode.transcript ? session.fullText : session.translationText;
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<TranscribeBloc, TranscribeState>(
@@ -133,16 +124,11 @@ class _TranscribePageState extends State<TranscribePage> {
         );
       },
       builder: (context, state) {
-        final l10n = AppLocalizations.of(context)!;
         final settings = context.watch<SettingsCubit>().state.settings;
-        const translationEnabled = FeatureFlags.geminiTranslationEnabled;
-        final translationChip = settings.language.isEmpty ? 'TR' : settings.language.toUpperCase();
+        final languageChip = settings.language.toUpperCase();
 
         final isLive = state.status == SessionStatus.recording;
-        final canStop = state.status != SessionStatus.idle;
         final session = state.session;
-        final displayMode = translationEnabled ? state.displayMode : ArDisplayMode.transcript;
-        final displayText = _textForMode(session, displayMode);
 
         return PopScope(
           canPop: false,
@@ -167,14 +153,8 @@ class _TranscribePageState extends State<TranscribePage> {
                       child: ArTranscriptOverlay(
                         segments: session?.segments ?? [],
                         livePreviewText: state.livePreviewText,
-                        displayMode: displayMode,
                         isConnected: state.isConnected && isLive,
-                        transcriptChipLabel: l10n.transcriptChipLabel,
-                        translationChipLabel: translationChip,
-                        showTranslationToggle: translationEnabled,
-                        onModeChanged: (mode) => _addBlocEvent(
-                          TranscribeEvent.displayModeChanged(mode),
-                        ),
+                        languageChipLabel: languageChip,
                       ),
                     ),
                   ),

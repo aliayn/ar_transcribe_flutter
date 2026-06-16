@@ -103,7 +103,6 @@ extension GetItX on GetIt {
     registerLazySingleton<i_transcription_repository.TranscriptionRepository>(
       () => i_transcription_repository_impl.TranscriptionRepositoryImpl(
         get<i_deepgram_data_source.DeepgramDataSource>(),
-        get<i_gemini_translation_data_source.GeminiTranslationDataSource>(),
         get<i_pcm_audio_stream_data_source.PcmAudioStreamDataSource>(),
       ),
     );

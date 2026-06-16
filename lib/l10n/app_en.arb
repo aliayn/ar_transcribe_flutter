@@ -7,17 +7,17 @@
   "@realtimeTitle": {
     "description": "Card title describing the main feature"
   },
-  "realtimeDescription": "Point your camera at a YouTube or news screen. Live English captions (Deepgram) and translation (Gemini) appear as an AR overlay. Add API keys in .env.",
+  "realtimeDescription": "Point your camera at a YouTube or news screen. Live captions in your chosen language appear as an AR overlay via Deepgram Nova-3. Add DEEPGRAM_API_KEY in .env.",
   "@realtimeDescription": {
     "description": "Short description of how transcription works"
   },
-  "languageLabel": "Translation language",
-  "@languageLabel": {
-    "description": "Target language for Gemini translation"
+  "appLocaleLabel": "App language",
+  "@appLocaleLabel": {
+    "description": "UI locale for menus and labels"
   },
-  "transcriptChipLabel": "EN",
-  "@transcriptChipLabel": {
-    "description": "AR overlay toggle for source transcript"
+  "languageLabel": "Transcription language",
+  "@languageLabel": {
+    "description": "Spoken language for Deepgram STT"
   },
   "startTranscribing": "Start Transcribing",
   "@startTranscribing": {

@@ -16,13 +16,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get realtimeDescription =>
-      'Point your camera at a YouTube or news screen. Live English captions (Deepgram) and translation (Gemini) appear as an AR overlay. Add API keys in .env.';
+      'Point your camera at a YouTube or news screen. Live captions in your chosen language appear as an AR overlay via Deepgram Nova-3. Add DEEPGRAM_API_KEY in .env.';
 
   @override
-  String get languageLabel => 'Translation language';
+  String get appLocaleLabel => 'App language';
 
   @override
-  String get transcriptChipLabel => 'EN';
+  String get languageLabel => 'Transcription language';
 
   @override
   String get startTranscribing => 'Start Transcribing';

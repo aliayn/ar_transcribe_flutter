@@ -115,20 +115,20 @@ abstract class AppLocalizations {
   /// Short description of how transcription works
   ///
   /// In en, this message translates to:
-  /// **'Point your camera at a YouTube or news screen. Live English captions (Deepgram) and translation (Gemini) appear as an AR overlay. Add API keys in .env.'**
+  /// **'Point your camera at a YouTube or news screen. Live captions in your chosen language appear as an AR overlay via Deepgram Nova-3. Add DEEPGRAM_API_KEY in .env.'**
   String get realtimeDescription;
 
-  /// Target language for Gemini translation
+  /// UI locale for menus and labels
   ///
   /// In en, this message translates to:
-  /// **'Translation language'**
-  String get languageLabel;
+  /// **'App language'**
+  String get appLocaleLabel;
 
-  /// AR overlay toggle for source transcript
+  /// Spoken language for Deepgram STT
   ///
   /// In en, this message translates to:
-  /// **'EN'**
-  String get transcriptChipLabel;
+  /// **'Transcription language'**
+  String get languageLabel;
 
   /// Primary CTA button label
   ///

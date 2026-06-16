@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ar_transcribe/gen_l10n/app_localizations.dart';
 
-import '../../../../core/config/feature_flags.dart';
+import '../../../../core/constants/app_constants.dart';
 import '../../../../shared/widgets/language_selector.dart';
 import '../../../../ui/core/adaptive_content.dart';
 import '../../../settings/domain/entities/app_settings.dart';
@@ -44,7 +44,12 @@ class HomePage extends StatelessWidget {
                 isWide: isWide,
                 l10n: l10n,
                 settings: settings,
-                onLanguageChanged: (code) {
+                onAppLocaleChanged: (code) {
+                  context.read<SettingsCubit>().update(
+                        settings.copyWith(appLocale: code),
+                      );
+                },
+                onTranscriptionLanguageChanged: (code) {
                   context.read<SettingsCubit>().update(
                         settings.copyWith(language: code),
                       );
@@ -64,14 +69,16 @@ class _HomeBody extends StatelessWidget {
     required this.isWide,
     required this.l10n,
     required this.settings,
-    required this.onLanguageChanged,
+    required this.onAppLocaleChanged,
+    required this.onTranscriptionLanguageChanged,
     required this.onStart,
   });
 
   final bool isWide;
   final AppLocalizations l10n;
   final AppSettings settings;
-  final ValueChanged<String> onLanguageChanged;
+  final ValueChanged<String> onAppLocaleChanged;
+  final ValueChanged<String> onTranscriptionLanguageChanged;
   final VoidCallback onStart;
 
   @override
@@ -84,15 +91,22 @@ class _HomeBody extends StatelessWidget {
           title: l10n.realtimeTitle,
           description: l10n.realtimeDescription,
         ),
-        if (FeatureFlags.geminiTranslationEnabled) ...[
-          const SizedBox(height: 32),
-          Text(l10n.languageLabel, style: const TextStyle(color: Colors.white70)),
-          const SizedBox(height: 8),
-          LanguageSelector(
-            selected: settings.language,
-            onChanged: onLanguageChanged,
-          ),
-        ],
+        const SizedBox(height: 32),
+        Text(l10n.appLocaleLabel, style: const TextStyle(color: Colors.white70)),
+        const SizedBox(height: 8),
+        LanguageSelector(
+          selected: settings.appLocale,
+          languages: AppConstants.supportedAppLocales,
+          onChanged: onAppLocaleChanged,
+        ),
+        const SizedBox(height: 24),
+        Text(l10n.languageLabel, style: const TextStyle(color: Colors.white70)),
+        const SizedBox(height: 8),
+        LanguageSelector(
+          selected: settings.language,
+          languages: AppConstants.deepgramLanguages,
+          onChanged: onTranscriptionLanguageChanged,
+        ),
       ],
     );
 

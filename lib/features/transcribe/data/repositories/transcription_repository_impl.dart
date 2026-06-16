@@ -1,21 +1,19 @@
 import 'package:get_it_injector/get_it_injector.dart';
 
 import '../../../../core/config/env_config.dart';
+import '../../../../core/utils/locale_mapper.dart';
 import '../../domain/repositories/transcription_repository.dart';
 import '../datasources/deepgram_data_source.dart';
-import '../datasources/gemini_translation_data_source.dart';
 import '../datasources/pcm_audio_stream_data_source.dart';
 
 @lazySingleton
 class TranscriptionRepositoryImpl implements TranscriptionRepository {
   TranscriptionRepositoryImpl(
     this._deepgram,
-    this._gemini,
     this._pcmStream,
   );
 
   final DeepgramDataSource _deepgram;
-  final GeminiTranslationDataSource _gemini;
   final PcmAudioStreamDataSource _pcmStream;
 
   @override
@@ -27,17 +25,14 @@ class TranscriptionRepositoryImpl implements TranscriptionRepository {
   @override
   Future<void> startLiveTranscription({
     required void Function(String transcript, bool isFinal) onTranscript,
+    required String language,
   }) async {
-    await _deepgram.connect(onTranscript: onTranscript);
+    await _deepgram.connect(
+      onTranscript: onTranscript,
+      language: LocaleMapper.toDeepgramLanguage(language),
+    );
     await _pcmStream.start(_deepgram.sendAudio);
   }
-
-  @override
-  Future<String> translate({
-    required String text,
-    required String targetLanguageLabel,
-  }) =>
-      _gemini.translate(text: text, targetLanguageLabel: targetLanguageLabel);
 
   @override
   Future<void> stopLiveTranscription() async {

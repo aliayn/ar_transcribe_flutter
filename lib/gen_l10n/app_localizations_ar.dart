@@ -16,13 +16,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get realtimeDescription =>
-      'وجّه الكاميرا نحو شاشة يوتيوب أو الأخبار. تظهر ترجمة حية (Deepgram) وترجمة (Gemini) كطبقة AR. أضف مفاتيح API في .env.';
+      'وجّه الكاميرا نحو شاشة يوتيوب أو الأخبار. تظهر ترجمة حية باللغة التي تختارها عبر Deepgram Nova-3 كطبقة AR. أضف DEEPGRAM_API_KEY في .env.';
 
   @override
-  String get languageLabel => 'لغة الترجمة';
+  String get appLocaleLabel => 'لغة التطبيق';
 
   @override
-  String get transcriptChipLabel => 'EN';
+  String get languageLabel => 'لغة النسخ';
 
   @override
   String get startTranscribing => 'ابدأ النسخ';

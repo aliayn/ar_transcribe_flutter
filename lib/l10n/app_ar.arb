@@ -1,9 +1,9 @@
 {
   "appTitle": "AR Transcribe",
   "realtimeTitle": "نسخ فوري",
-  "realtimeDescription": "وجّه الكاميرا نحو شاشة يوتيوب أو الأخبار. تظهر ترجمة حية (Deepgram) وترجمة (Gemini) كطبقة AR. أضف مفاتيح API في .env.",
-  "languageLabel": "لغة الترجمة",
-  "transcriptChipLabel": "EN",
+  "realtimeDescription": "وجّه الكاميرا نحو شاشة يوتيوب أو الأخبار. تظهر ترجمة حية باللغة التي تختارها عبر Deepgram Nova-3 كطبقة AR. أضف DEEPGRAM_API_KEY في .env.",
+  "appLocaleLabel": "لغة التطبيق",
+  "languageLabel": "لغة النسخ",
   "startTranscribing": "ابدأ النسخ",
   "routeNotFound": "المسار غير موجود"
 }

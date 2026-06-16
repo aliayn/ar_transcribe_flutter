@@ -1,4 +1,4 @@
-/// Cloud live transcription (Deepgram) + translation (Gemini).
+/// Cloud live transcription via Deepgram.
 abstract interface class TranscriptionRepository {
   Future<bool> hasMicrophonePermission();
 
@@ -6,11 +6,7 @@ abstract interface class TranscriptionRepository {
 
   Future<void> startLiveTranscription({
     required void Function(String transcript, bool isFinal) onTranscript,
-  });
-
-  Future<String> translate({
-    required String text,
-    required String targetLanguageLabel,
+    required String language,
   });
 
   Future<void> stopLiveTranscription();

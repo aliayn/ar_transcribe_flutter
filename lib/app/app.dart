@@ -16,12 +16,12 @@ class ArTranscribeApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     return BlocBuilder<SettingsCubit, SettingsState>(
       builder: (context, state) {
-        final lang = state.settings.language;
+        final locale = state.settings.appLocale;
         return MaterialApp.router(
           onGenerateTitle: (context) => AppLocalizations.of(context)?.appTitle ?? 'AR Transcribe',
           debugShowCheckedModeBanner: false,
           routerConfig: appRouter,
-          locale: Locale(lang),
+          locale: Locale(locale),
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,

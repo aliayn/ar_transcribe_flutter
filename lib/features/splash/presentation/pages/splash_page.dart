@@ -12,7 +12,7 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  static const _minBrandingDuration = Duration(milliseconds: 350);
+  static const _minBrandingDuration = Duration(seconds: 3);
 
   @override
   void initState() {

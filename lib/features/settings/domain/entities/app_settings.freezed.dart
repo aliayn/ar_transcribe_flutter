@@ -20,6 +20,10 @@ AppSettings _$AppSettingsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AppSettings {
+  /// UI locale (en, fa, ar).
+  String get appLocale => throw _privateConstructorUsedError;
+
+  /// Deepgram transcription language (BCP-47).
   String get language => throw _privateConstructorUsedError;
   bool get darkMode => throw _privateConstructorUsedError;
 
@@ -39,7 +43,7 @@ abstract class $AppSettingsCopyWith<$Res> {
           AppSettings value, $Res Function(AppSettings) then) =
       _$AppSettingsCopyWithImpl<$Res, AppSettings>;
   @useResult
-  $Res call({String language, bool darkMode});
+  $Res call({String appLocale, String language, bool darkMode});
 }
 
 /// @nodoc
@@ -57,10 +61,15 @@ class _$AppSettingsCopyWithImpl<$Res, $Val extends AppSettings>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? appLocale = null,
     Object? language = null,
     Object? darkMode = null,
   }) {
     return _then(_value.copyWith(
+      appLocale: null == appLocale
+          ? _value.appLocale
+          : appLocale // ignore: cast_nullable_to_non_nullable
+              as String,
       language: null == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
@@ -81,7 +90,7 @@ abstract class _$$AppSettingsImplCopyWith<$Res>
       __$$AppSettingsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String language, bool darkMode});
+  $Res call({String appLocale, String language, bool darkMode});
 }
 
 /// @nodoc
@@ -97,10 +106,15 @@ class __$$AppSettingsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? appLocale = null,
     Object? language = null,
     Object? darkMode = null,
   }) {
     return _then(_$AppSettingsImpl(
+      appLocale: null == appLocale
+          ? _value.appLocale
+          : appLocale // ignore: cast_nullable_to_non_nullable
+              as String,
       language: null == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
@@ -116,11 +130,18 @@ class __$$AppSettingsImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$AppSettingsImpl implements _AppSettings {
-  const _$AppSettingsImpl({this.language = 'en', this.darkMode = true});
+  const _$AppSettingsImpl(
+      {this.appLocale = 'en', this.language = 'en-US', this.darkMode = true});
 
   factory _$AppSettingsImpl.fromJson(Map<String, dynamic> json) =>
       _$$AppSettingsImplFromJson(json);
 
+  /// UI locale (en, fa, ar).
+  @override
+  @JsonKey()
+  final String appLocale;
+
+  /// Deepgram transcription language (BCP-47).
   @override
   @JsonKey()
   final String language;
@@ -130,7 +151,7 @@ class _$AppSettingsImpl implements _AppSettings {
 
   @override
   String toString() {
-    return 'AppSettings(language: $language, darkMode: $darkMode)';
+    return 'AppSettings(appLocale: $appLocale, language: $language, darkMode: $darkMode)';
   }
 
   @override
@@ -138,6 +159,8 @@ class _$AppSettingsImpl implements _AppSettings {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AppSettingsImpl &&
+            (identical(other.appLocale, appLocale) ||
+                other.appLocale == appLocale) &&
             (identical(other.language, language) ||
                 other.language == language) &&
             (identical(other.darkMode, darkMode) ||
@@ -146,7 +169,7 @@ class _$AppSettingsImpl implements _AppSettings {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, language, darkMode);
+  int get hashCode => Object.hash(runtimeType, appLocale, language, darkMode);
 
   /// Create a copy of AppSettings
   /// with the given fields replaced by the non-null parameter values.
@@ -165,12 +188,19 @@ class _$AppSettingsImpl implements _AppSettings {
 }
 
 abstract class _AppSettings implements AppSettings {
-  const factory _AppSettings({final String language, final bool darkMode}) =
-      _$AppSettingsImpl;
+  const factory _AppSettings(
+      {final String appLocale,
+      final String language,
+      final bool darkMode}) = _$AppSettingsImpl;
 
   factory _AppSettings.fromJson(Map<String, dynamic> json) =
       _$AppSettingsImpl.fromJson;
 
+  /// UI locale (en, fa, ar).
+  @override
+  String get appLocale;
+
+  /// Deepgram transcription language (BCP-47).
   @override
   String get language;
   @override

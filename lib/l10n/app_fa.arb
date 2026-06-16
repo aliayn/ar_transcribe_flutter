@@ -1,9 +1,9 @@
 {
   "appTitle": "آر ترنسکرایب",
   "realtimeTitle": "رونویسی لحظه‌ای",
-  "realtimeDescription": "دوربین را به صفحه یوتیوب یا خبر بگیرید. زیرنویس انگلیسی زنده (Deepgram) و ترجمه (Gemini) روی تصویر نمایش داده می‌شود. کلیدهای API را در .env قرار دهید.",
-  "languageLabel": "زبان ترجمه",
-  "transcriptChipLabel": "EN",
+  "realtimeDescription": "دوربین را به صفحه یوتیوب یا خبر بگیرید. زیرنویس زنده به زبان انتخابی شما با Deepgram Nova-3 روی تصویر نمایش داده می‌شود. DEEPGRAM_API_KEY را در .env قرار دهید.",
+  "appLocaleLabel": "زبان برنامه",
+  "languageLabel": "زبان رونویسی",
   "startTranscribing": "شروع رونویسی",
   "routeNotFound": "مسیر پیدا نشد"
 }

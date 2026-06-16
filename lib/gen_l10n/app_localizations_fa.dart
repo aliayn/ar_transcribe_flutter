@@ -16,13 +16,13 @@ class AppLocalizationsFa extends AppLocalizations {
 
   @override
   String get realtimeDescription =>
-      'دوربین را به صفحه یوتیوب یا خبر بگیرید. زیرنویس انگلیسی زنده (Deepgram) و ترجمه (Gemini) روی تصویر نمایش داده می‌شود. کلیدهای API را در .env قرار دهید.';
+      'دوربین را به صفحه یوتیوب یا خبر بگیرید. زیرنویس زنده به زبان انتخابی شما با Deepgram Nova-3 روی تصویر نمایش داده می‌شود. DEEPGRAM_API_KEY را در .env قرار دهید.';
 
   @override
-  String get languageLabel => 'زبان ترجمه';
+  String get appLocaleLabel => 'زبان برنامه';
 
   @override
-  String get transcriptChipLabel => 'EN';
+  String get languageLabel => 'زبان رونویسی';
 
   @override
   String get startTranscribing => 'شروع رونویسی';

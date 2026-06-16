@@ -8,12 +8,14 @@ part of 'app_settings.dart';
 
 _$AppSettingsImpl _$$AppSettingsImplFromJson(Map<String, dynamic> json) =>
     _$AppSettingsImpl(
-      language: json['language'] as String? ?? 'en',
+      appLocale: json['appLocale'] as String? ?? 'en',
+      language: json['language'] as String? ?? 'en-US',
       darkMode: json['darkMode'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$$AppSettingsImplToJson(_$AppSettingsImpl instance) =>
     <String, dynamic>{
+      'appLocale': instance.appLocale,
       'language': instance.language,
       'darkMode': instance.darkMode,
     };

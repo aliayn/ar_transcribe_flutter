@@ -1,5 +1,5 @@
 /// Temporary feature toggles — flip when ready to ship.
 abstract final class FeatureFlags {
-  /// Gemini translation (enable in a follow-up step).
+  /// Gemini translation (disabled — Deepgram handles STT only).
   static const bool geminiTranslationEnabled = false;
 }

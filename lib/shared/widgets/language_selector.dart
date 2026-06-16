@@ -7,13 +7,19 @@ class LanguageSelector extends StatelessWidget {
     super.key,
     required this.selected,
     required this.onChanged,
+    this.languages = AppConstants.deepgramLanguages,
   });
 
   final String selected;
   final void Function(String) onChanged;
+  final List<Map<String, String>> languages;
 
   @override
   Widget build(BuildContext context) {
+    final effectiveSelected = languages.any((l) => l['code'] == selected)
+        ? selected
+        : languages.first['code']!;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
@@ -21,12 +27,12 @@ class LanguageSelector extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: DropdownButton<String>(
-        value: selected,
+        value: effectiveSelected,
         isExpanded: true,
         underline: const SizedBox(),
         dropdownColor: const Color(0xFF0D0D1A),
         style: const TextStyle(color: Colors.white),
-        items: AppConstants.supportedLanguages
+        items: languages
             .map(
               (lang) => DropdownMenuItem<String>(
                 value: lang['code']!,
