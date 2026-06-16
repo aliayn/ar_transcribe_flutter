@@ -50,6 +50,7 @@ class DeepgramDataSource {
       uri,
       headers: {'Authorization': 'Token $apiKey'},
     );
+    await _channel!.ready;
     _connected = true;
 
     _subscription = _channel!.stream.listen(

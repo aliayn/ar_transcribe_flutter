@@ -1,10 +1,7 @@
 PODS:
-  - audio_session (0.0.1):
+  - camera_avfoundation (0.0.1):
     - Flutter
   - Flutter (1.0.0)
-  - just_audio (0.0.1):
-    - Flutter
-    - FlutterMacOS
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -17,36 +14,21 @@ PODS:
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - speech_to_text (0.0.1):
-    - Flutter
-    - Try
-  - Try (2.1.1)
-  - vosk_flutter_service (0.1.1):
-    - Flutter
 
 DEPENDENCIES:
-  - audio_session (from `.symlinks/plugins/audio_session/ios`)
+  - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
   - Flutter (from `Flutter`)
-  - just_audio (from `.symlinks/plugins/just_audio/darwin`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - record_darwin (from `.symlinks/plugins/record_darwin/ios`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
-  - speech_to_text (from `.symlinks/plugins/speech_to_text/ios`)
-  - vosk_flutter_service (from `.symlinks/plugins/vosk_flutter_service/ios`)
-
-SPEC REPOS:
-  trunk:
-    - Try
 
 EXTERNAL SOURCES:
-  audio_session:
-    :path: ".symlinks/plugins/audio_session/ios"
+  camera_avfoundation:
+    :path: ".symlinks/plugins/camera_avfoundation/ios"
   Flutter:
     :path: Flutter
-  just_audio:
-    :path: ".symlinks/plugins/just_audio/darwin"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   permission_handler_apple:
@@ -57,24 +39,16 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/share_plus/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
-  speech_to_text:
-    :path: ".symlinks/plugins/speech_to_text/ios"
-  vosk_flutter_service:
-    :path: ".symlinks/plugins/vosk_flutter_service/ios"
 
 SPEC CHECKSUMS:
-  audio_session: 9bb7f6c970f21241b19f5a3658097ae459681ba0
+  camera_avfoundation: 5675ca25298b6f81fa0a325188e7df62cc217741
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
-  just_audio: 4e391f57b79cad2b0674030a00453ca5ce817eed
   path_provider_foundation: bb55f6dbba17d0dccd6737fe6f7f34fbd0376880
   permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
   record_darwin: fb1f375f1d9603714f55b8708a903bbb91ffdb0a
-  share_plus: 011d6fb4f9d2576b83179a3a5c5e323202cdabcf
+  share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
   shared_preferences_foundation: 7036424c3d8ec98dfe75ff1667cb0cd531ec82bb
-  speech_to_text: ae2abc312e619ff1c53e675a9fc4d785a15c03bb
-  Try: 5ef669ae832617b3cee58cb2c6f99fb767a4ff96
-  vosk_flutter_service: 284adba8f0b9d0fd52d8a953540c561c08f2bc08
 
-PODFILE CHECKSUM: 070cf35780d63e6353e6195dfb9a7a06e5aec3db
+PODFILE CHECKSUM: 03fb1150c1496ddf52f3982530ce69b87ef1526a
 
 COCOAPODS: 1.16.2

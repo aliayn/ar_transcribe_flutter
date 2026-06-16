@@ -22,6 +22,7 @@ class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
         _saveSession = saveSession,
         super(const TranscribeState()) {
     on<TranscribeStarted>(_onStarted);
+    on<TranscribeConnectionEstablished>(_onConnectionEstablished);
     on<TranscribeConnectionFailed>(_onConnectionFailed);
     on<TranscribeTranscriptReceived>(_onTranscriptReceived);
     on<TranscribeTranslationReceived>(_onTranslationReceived);
@@ -81,7 +82,7 @@ class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
     emit(state.copyWith(
       status: SessionStatus.recording,
       session: session,
-      isConnected: true,
+      isConnected: false,
       livePreviewText: '',
       errorMessage: null,
     ));
@@ -98,9 +99,17 @@ class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
           _safeAdd(TranscribeEvent.transcriptReceived(text, isFinal));
         },
       );
+      _safeAdd(const TranscribeEvent.connectionEstablished());
     } catch (error) {
       _safeAdd(TranscribeEvent.connectionFailed(error.toString()));
     }
+  }
+
+  void _onConnectionEstablished(
+    TranscribeConnectionEstablished event,
+    Emitter<TranscribeState> emit,
+  ) {
+    emit(state.copyWith(isConnected: true));
   }
 
   void _onConnectionFailed(

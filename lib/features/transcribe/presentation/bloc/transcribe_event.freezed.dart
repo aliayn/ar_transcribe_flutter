@@ -19,6 +19,7 @@ mixin _$TranscribeEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppSettings settings) started,
+    required TResult Function() connectionEstablished,
     required TResult Function(String message) connectionFailed,
     required TResult Function(String text, bool isFinal) transcriptReceived,
     required TResult Function(String text) translationReceived,
@@ -30,6 +31,7 @@ mixin _$TranscribeEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppSettings settings)? started,
+    TResult? Function()? connectionEstablished,
     TResult? Function(String message)? connectionFailed,
     TResult? Function(String text, bool isFinal)? transcriptReceived,
     TResult? Function(String text)? translationReceived,
@@ -41,6 +43,7 @@ mixin _$TranscribeEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppSettings settings)? started,
+    TResult Function()? connectionEstablished,
     TResult Function(String message)? connectionFailed,
     TResult Function(String text, bool isFinal)? transcriptReceived,
     TResult Function(String text)? translationReceived,
@@ -53,6 +56,8 @@ mixin _$TranscribeEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(TranscribeStarted value) started,
+    required TResult Function(TranscribeConnectionEstablished value)
+        connectionEstablished,
     required TResult Function(TranscribeConnectionFailed value)
         connectionFailed,
     required TResult Function(TranscribeTranscriptReceived value)
@@ -68,6 +73,8 @@ mixin _$TranscribeEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(TranscribeStarted value)? started,
+    TResult? Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
     TResult? Function(TranscribeConnectionFailed value)? connectionFailed,
     TResult? Function(TranscribeTranscriptReceived value)? transcriptReceived,
     TResult? Function(TranscribeTranslationReceived value)? translationReceived,
@@ -79,6 +86,8 @@ mixin _$TranscribeEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(TranscribeStarted value)? started,
+    TResult Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
     TResult Function(TranscribeConnectionFailed value)? connectionFailed,
     TResult Function(TranscribeTranscriptReceived value)? transcriptReceived,
     TResult Function(TranscribeTranslationReceived value)? translationReceived,
@@ -194,6 +203,7 @@ class _$TranscribeStartedImpl implements TranscribeStarted {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppSettings settings) started,
+    required TResult Function() connectionEstablished,
     required TResult Function(String message) connectionFailed,
     required TResult Function(String text, bool isFinal) transcriptReceived,
     required TResult Function(String text) translationReceived,
@@ -208,6 +218,7 @@ class _$TranscribeStartedImpl implements TranscribeStarted {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppSettings settings)? started,
+    TResult? Function()? connectionEstablished,
     TResult? Function(String message)? connectionFailed,
     TResult? Function(String text, bool isFinal)? transcriptReceived,
     TResult? Function(String text)? translationReceived,
@@ -222,6 +233,7 @@ class _$TranscribeStartedImpl implements TranscribeStarted {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppSettings settings)? started,
+    TResult Function()? connectionEstablished,
     TResult Function(String message)? connectionFailed,
     TResult Function(String text, bool isFinal)? transcriptReceived,
     TResult Function(String text)? translationReceived,
@@ -240,6 +252,8 @@ class _$TranscribeStartedImpl implements TranscribeStarted {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(TranscribeStarted value) started,
+    required TResult Function(TranscribeConnectionEstablished value)
+        connectionEstablished,
     required TResult Function(TranscribeConnectionFailed value)
         connectionFailed,
     required TResult Function(TranscribeTranscriptReceived value)
@@ -258,6 +272,8 @@ class _$TranscribeStartedImpl implements TranscribeStarted {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(TranscribeStarted value)? started,
+    TResult? Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
     TResult? Function(TranscribeConnectionFailed value)? connectionFailed,
     TResult? Function(TranscribeTranscriptReceived value)? transcriptReceived,
     TResult? Function(TranscribeTranslationReceived value)? translationReceived,
@@ -272,6 +288,8 @@ class _$TranscribeStartedImpl implements TranscribeStarted {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(TranscribeStarted value)? started,
+    TResult Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
     TResult Function(TranscribeConnectionFailed value)? connectionFailed,
     TResult Function(TranscribeTranscriptReceived value)? transcriptReceived,
     TResult Function(TranscribeTranslationReceived value)? translationReceived,
@@ -298,6 +316,160 @@ abstract class TranscribeStarted implements TranscribeEvent {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TranscribeStartedImplCopyWith<_$TranscribeStartedImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$TranscribeConnectionEstablishedImplCopyWith<$Res> {
+  factory _$$TranscribeConnectionEstablishedImplCopyWith(
+          _$TranscribeConnectionEstablishedImpl value,
+          $Res Function(_$TranscribeConnectionEstablishedImpl) then) =
+      __$$TranscribeConnectionEstablishedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$TranscribeConnectionEstablishedImplCopyWithImpl<$Res>
+    extends _$TranscribeEventCopyWithImpl<$Res,
+        _$TranscribeConnectionEstablishedImpl>
+    implements _$$TranscribeConnectionEstablishedImplCopyWith<$Res> {
+  __$$TranscribeConnectionEstablishedImplCopyWithImpl(
+      _$TranscribeConnectionEstablishedImpl _value,
+      $Res Function(_$TranscribeConnectionEstablishedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TranscribeEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$TranscribeConnectionEstablishedImpl
+    implements TranscribeConnectionEstablished {
+  const _$TranscribeConnectionEstablishedImpl();
+
+  @override
+  String toString() {
+    return 'TranscribeEvent.connectionEstablished()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TranscribeConnectionEstablishedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(AppSettings settings) started,
+    required TResult Function() connectionEstablished,
+    required TResult Function(String message) connectionFailed,
+    required TResult Function(String text, bool isFinal) transcriptReceived,
+    required TResult Function(String text) translationReceived,
+    required TResult Function(ArDisplayMode mode) displayModeChanged,
+    required TResult Function() stopped,
+    required TResult Function() reset,
+  }) {
+    return connectionEstablished();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(AppSettings settings)? started,
+    TResult? Function()? connectionEstablished,
+    TResult? Function(String message)? connectionFailed,
+    TResult? Function(String text, bool isFinal)? transcriptReceived,
+    TResult? Function(String text)? translationReceived,
+    TResult? Function(ArDisplayMode mode)? displayModeChanged,
+    TResult? Function()? stopped,
+    TResult? Function()? reset,
+  }) {
+    return connectionEstablished?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(AppSettings settings)? started,
+    TResult Function()? connectionEstablished,
+    TResult Function(String message)? connectionFailed,
+    TResult Function(String text, bool isFinal)? transcriptReceived,
+    TResult Function(String text)? translationReceived,
+    TResult Function(ArDisplayMode mode)? displayModeChanged,
+    TResult Function()? stopped,
+    TResult Function()? reset,
+    required TResult orElse(),
+  }) {
+    if (connectionEstablished != null) {
+      return connectionEstablished();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(TranscribeStarted value) started,
+    required TResult Function(TranscribeConnectionEstablished value)
+        connectionEstablished,
+    required TResult Function(TranscribeConnectionFailed value)
+        connectionFailed,
+    required TResult Function(TranscribeTranscriptReceived value)
+        transcriptReceived,
+    required TResult Function(TranscribeTranslationReceived value)
+        translationReceived,
+    required TResult Function(TranscribeDisplayModeChanged value)
+        displayModeChanged,
+    required TResult Function(TranscribeStopped value) stopped,
+    required TResult Function(TranscribeReset value) reset,
+  }) {
+    return connectionEstablished(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(TranscribeStarted value)? started,
+    TResult? Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
+    TResult? Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult? Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult? Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult? Function(TranscribeDisplayModeChanged value)? displayModeChanged,
+    TResult? Function(TranscribeStopped value)? stopped,
+    TResult? Function(TranscribeReset value)? reset,
+  }) {
+    return connectionEstablished?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(TranscribeStarted value)? started,
+    TResult Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
+    TResult Function(TranscribeConnectionFailed value)? connectionFailed,
+    TResult Function(TranscribeTranscriptReceived value)? transcriptReceived,
+    TResult Function(TranscribeTranslationReceived value)? translationReceived,
+    TResult Function(TranscribeDisplayModeChanged value)? displayModeChanged,
+    TResult Function(TranscribeStopped value)? stopped,
+    TResult Function(TranscribeReset value)? reset,
+    required TResult orElse(),
+  }) {
+    if (connectionEstablished != null) {
+      return connectionEstablished(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class TranscribeConnectionEstablished implements TranscribeEvent {
+  const factory TranscribeConnectionEstablished() =
+      _$TranscribeConnectionEstablishedImpl;
 }
 
 /// @nodoc
@@ -373,6 +545,7 @@ class _$TranscribeConnectionFailedImpl implements TranscribeConnectionFailed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppSettings settings) started,
+    required TResult Function() connectionEstablished,
     required TResult Function(String message) connectionFailed,
     required TResult Function(String text, bool isFinal) transcriptReceived,
     required TResult Function(String text) translationReceived,
@@ -387,6 +560,7 @@ class _$TranscribeConnectionFailedImpl implements TranscribeConnectionFailed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppSettings settings)? started,
+    TResult? Function()? connectionEstablished,
     TResult? Function(String message)? connectionFailed,
     TResult? Function(String text, bool isFinal)? transcriptReceived,
     TResult? Function(String text)? translationReceived,
@@ -401,6 +575,7 @@ class _$TranscribeConnectionFailedImpl implements TranscribeConnectionFailed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppSettings settings)? started,
+    TResult Function()? connectionEstablished,
     TResult Function(String message)? connectionFailed,
     TResult Function(String text, bool isFinal)? transcriptReceived,
     TResult Function(String text)? translationReceived,
@@ -419,6 +594,8 @@ class _$TranscribeConnectionFailedImpl implements TranscribeConnectionFailed {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(TranscribeStarted value) started,
+    required TResult Function(TranscribeConnectionEstablished value)
+        connectionEstablished,
     required TResult Function(TranscribeConnectionFailed value)
         connectionFailed,
     required TResult Function(TranscribeTranscriptReceived value)
@@ -437,6 +614,8 @@ class _$TranscribeConnectionFailedImpl implements TranscribeConnectionFailed {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(TranscribeStarted value)? started,
+    TResult? Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
     TResult? Function(TranscribeConnectionFailed value)? connectionFailed,
     TResult? Function(TranscribeTranscriptReceived value)? transcriptReceived,
     TResult? Function(TranscribeTranslationReceived value)? translationReceived,
@@ -451,6 +630,8 @@ class _$TranscribeConnectionFailedImpl implements TranscribeConnectionFailed {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(TranscribeStarted value)? started,
+    TResult Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
     TResult Function(TranscribeConnectionFailed value)? connectionFailed,
     TResult Function(TranscribeTranscriptReceived value)? transcriptReceived,
     TResult Function(TranscribeTranslationReceived value)? translationReceived,
@@ -562,6 +743,7 @@ class _$TranscribeTranscriptReceivedImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppSettings settings) started,
+    required TResult Function() connectionEstablished,
     required TResult Function(String message) connectionFailed,
     required TResult Function(String text, bool isFinal) transcriptReceived,
     required TResult Function(String text) translationReceived,
@@ -576,6 +758,7 @@ class _$TranscribeTranscriptReceivedImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppSettings settings)? started,
+    TResult? Function()? connectionEstablished,
     TResult? Function(String message)? connectionFailed,
     TResult? Function(String text, bool isFinal)? transcriptReceived,
     TResult? Function(String text)? translationReceived,
@@ -590,6 +773,7 @@ class _$TranscribeTranscriptReceivedImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppSettings settings)? started,
+    TResult Function()? connectionEstablished,
     TResult Function(String message)? connectionFailed,
     TResult Function(String text, bool isFinal)? transcriptReceived,
     TResult Function(String text)? translationReceived,
@@ -608,6 +792,8 @@ class _$TranscribeTranscriptReceivedImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(TranscribeStarted value) started,
+    required TResult Function(TranscribeConnectionEstablished value)
+        connectionEstablished,
     required TResult Function(TranscribeConnectionFailed value)
         connectionFailed,
     required TResult Function(TranscribeTranscriptReceived value)
@@ -626,6 +812,8 @@ class _$TranscribeTranscriptReceivedImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(TranscribeStarted value)? started,
+    TResult? Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
     TResult? Function(TranscribeConnectionFailed value)? connectionFailed,
     TResult? Function(TranscribeTranscriptReceived value)? transcriptReceived,
     TResult? Function(TranscribeTranslationReceived value)? translationReceived,
@@ -640,6 +828,8 @@ class _$TranscribeTranscriptReceivedImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(TranscribeStarted value)? started,
+    TResult Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
     TResult Function(TranscribeConnectionFailed value)? connectionFailed,
     TResult Function(TranscribeTranscriptReceived value)? transcriptReceived,
     TResult Function(TranscribeTranslationReceived value)? translationReceived,
@@ -746,6 +936,7 @@ class _$TranscribeTranslationReceivedImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppSettings settings) started,
+    required TResult Function() connectionEstablished,
     required TResult Function(String message) connectionFailed,
     required TResult Function(String text, bool isFinal) transcriptReceived,
     required TResult Function(String text) translationReceived,
@@ -760,6 +951,7 @@ class _$TranscribeTranslationReceivedImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppSettings settings)? started,
+    TResult? Function()? connectionEstablished,
     TResult? Function(String message)? connectionFailed,
     TResult? Function(String text, bool isFinal)? transcriptReceived,
     TResult? Function(String text)? translationReceived,
@@ -774,6 +966,7 @@ class _$TranscribeTranslationReceivedImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppSettings settings)? started,
+    TResult Function()? connectionEstablished,
     TResult Function(String message)? connectionFailed,
     TResult Function(String text, bool isFinal)? transcriptReceived,
     TResult Function(String text)? translationReceived,
@@ -792,6 +985,8 @@ class _$TranscribeTranslationReceivedImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(TranscribeStarted value) started,
+    required TResult Function(TranscribeConnectionEstablished value)
+        connectionEstablished,
     required TResult Function(TranscribeConnectionFailed value)
         connectionFailed,
     required TResult Function(TranscribeTranscriptReceived value)
@@ -810,6 +1005,8 @@ class _$TranscribeTranslationReceivedImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(TranscribeStarted value)? started,
+    TResult? Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
     TResult? Function(TranscribeConnectionFailed value)? connectionFailed,
     TResult? Function(TranscribeTranscriptReceived value)? transcriptReceived,
     TResult? Function(TranscribeTranslationReceived value)? translationReceived,
@@ -824,6 +1021,8 @@ class _$TranscribeTranslationReceivedImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(TranscribeStarted value)? started,
+    TResult Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
     TResult Function(TranscribeConnectionFailed value)? connectionFailed,
     TResult Function(TranscribeTranscriptReceived value)? transcriptReceived,
     TResult Function(TranscribeTranslationReceived value)? translationReceived,
@@ -928,6 +1127,7 @@ class _$TranscribeDisplayModeChangedImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppSettings settings) started,
+    required TResult Function() connectionEstablished,
     required TResult Function(String message) connectionFailed,
     required TResult Function(String text, bool isFinal) transcriptReceived,
     required TResult Function(String text) translationReceived,
@@ -942,6 +1142,7 @@ class _$TranscribeDisplayModeChangedImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppSettings settings)? started,
+    TResult? Function()? connectionEstablished,
     TResult? Function(String message)? connectionFailed,
     TResult? Function(String text, bool isFinal)? transcriptReceived,
     TResult? Function(String text)? translationReceived,
@@ -956,6 +1157,7 @@ class _$TranscribeDisplayModeChangedImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppSettings settings)? started,
+    TResult Function()? connectionEstablished,
     TResult Function(String message)? connectionFailed,
     TResult Function(String text, bool isFinal)? transcriptReceived,
     TResult Function(String text)? translationReceived,
@@ -974,6 +1176,8 @@ class _$TranscribeDisplayModeChangedImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(TranscribeStarted value) started,
+    required TResult Function(TranscribeConnectionEstablished value)
+        connectionEstablished,
     required TResult Function(TranscribeConnectionFailed value)
         connectionFailed,
     required TResult Function(TranscribeTranscriptReceived value)
@@ -992,6 +1196,8 @@ class _$TranscribeDisplayModeChangedImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(TranscribeStarted value)? started,
+    TResult? Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
     TResult? Function(TranscribeConnectionFailed value)? connectionFailed,
     TResult? Function(TranscribeTranscriptReceived value)? transcriptReceived,
     TResult? Function(TranscribeTranslationReceived value)? translationReceived,
@@ -1006,6 +1212,8 @@ class _$TranscribeDisplayModeChangedImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(TranscribeStarted value)? started,
+    TResult Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
     TResult Function(TranscribeConnectionFailed value)? connectionFailed,
     TResult Function(TranscribeTranscriptReceived value)? transcriptReceived,
     TResult Function(TranscribeTranslationReceived value)? translationReceived,
@@ -1077,6 +1285,7 @@ class _$TranscribeStoppedImpl implements TranscribeStopped {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppSettings settings) started,
+    required TResult Function() connectionEstablished,
     required TResult Function(String message) connectionFailed,
     required TResult Function(String text, bool isFinal) transcriptReceived,
     required TResult Function(String text) translationReceived,
@@ -1091,6 +1300,7 @@ class _$TranscribeStoppedImpl implements TranscribeStopped {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppSettings settings)? started,
+    TResult? Function()? connectionEstablished,
     TResult? Function(String message)? connectionFailed,
     TResult? Function(String text, bool isFinal)? transcriptReceived,
     TResult? Function(String text)? translationReceived,
@@ -1105,6 +1315,7 @@ class _$TranscribeStoppedImpl implements TranscribeStopped {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppSettings settings)? started,
+    TResult Function()? connectionEstablished,
     TResult Function(String message)? connectionFailed,
     TResult Function(String text, bool isFinal)? transcriptReceived,
     TResult Function(String text)? translationReceived,
@@ -1123,6 +1334,8 @@ class _$TranscribeStoppedImpl implements TranscribeStopped {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(TranscribeStarted value) started,
+    required TResult Function(TranscribeConnectionEstablished value)
+        connectionEstablished,
     required TResult Function(TranscribeConnectionFailed value)
         connectionFailed,
     required TResult Function(TranscribeTranscriptReceived value)
@@ -1141,6 +1354,8 @@ class _$TranscribeStoppedImpl implements TranscribeStopped {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(TranscribeStarted value)? started,
+    TResult? Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
     TResult? Function(TranscribeConnectionFailed value)? connectionFailed,
     TResult? Function(TranscribeTranscriptReceived value)? transcriptReceived,
     TResult? Function(TranscribeTranslationReceived value)? translationReceived,
@@ -1155,6 +1370,8 @@ class _$TranscribeStoppedImpl implements TranscribeStopped {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(TranscribeStarted value)? started,
+    TResult Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
     TResult Function(TranscribeConnectionFailed value)? connectionFailed,
     TResult Function(TranscribeTranscriptReceived value)? transcriptReceived,
     TResult Function(TranscribeTranslationReceived value)? translationReceived,
@@ -1216,6 +1433,7 @@ class _$TranscribeResetImpl implements TranscribeReset {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppSettings settings) started,
+    required TResult Function() connectionEstablished,
     required TResult Function(String message) connectionFailed,
     required TResult Function(String text, bool isFinal) transcriptReceived,
     required TResult Function(String text) translationReceived,
@@ -1230,6 +1448,7 @@ class _$TranscribeResetImpl implements TranscribeReset {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppSettings settings)? started,
+    TResult? Function()? connectionEstablished,
     TResult? Function(String message)? connectionFailed,
     TResult? Function(String text, bool isFinal)? transcriptReceived,
     TResult? Function(String text)? translationReceived,
@@ -1244,6 +1463,7 @@ class _$TranscribeResetImpl implements TranscribeReset {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppSettings settings)? started,
+    TResult Function()? connectionEstablished,
     TResult Function(String message)? connectionFailed,
     TResult Function(String text, bool isFinal)? transcriptReceived,
     TResult Function(String text)? translationReceived,
@@ -1262,6 +1482,8 @@ class _$TranscribeResetImpl implements TranscribeReset {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(TranscribeStarted value) started,
+    required TResult Function(TranscribeConnectionEstablished value)
+        connectionEstablished,
     required TResult Function(TranscribeConnectionFailed value)
         connectionFailed,
     required TResult Function(TranscribeTranscriptReceived value)
@@ -1280,6 +1502,8 @@ class _$TranscribeResetImpl implements TranscribeReset {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(TranscribeStarted value)? started,
+    TResult? Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
     TResult? Function(TranscribeConnectionFailed value)? connectionFailed,
     TResult? Function(TranscribeTranscriptReceived value)? transcriptReceived,
     TResult? Function(TranscribeTranslationReceived value)? translationReceived,
@@ -1294,6 +1518,8 @@ class _$TranscribeResetImpl implements TranscribeReset {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(TranscribeStarted value)? started,
+    TResult Function(TranscribeConnectionEstablished value)?
+        connectionEstablished,
     TResult Function(TranscribeConnectionFailed value)? connectionFailed,
     TResult Function(TranscribeTranscriptReceived value)? transcriptReceived,
     TResult Function(TranscribeTranslationReceived value)? translationReceived,

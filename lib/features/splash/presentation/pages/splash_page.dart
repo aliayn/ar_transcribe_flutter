@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/startup/app_initializer.dart';
+
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -10,12 +12,27 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  static const _minBrandingDuration = Duration(milliseconds: 350);
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 1800), () {
-      if (mounted) context.go('/home');
-    });
+    _navigateWhenReady();
+  }
+
+  Future<void> _navigateWhenReady() async {
+    final startedAt = DateTime.now();
+
+    await AppInitializer.ensureInitialized();
+
+    final elapsed = DateTime.now().difference(startedAt);
+    final remaining = _minBrandingDuration - elapsed;
+    if (remaining > Duration.zero) {
+      await Future.delayed(remaining);
+    }
+
+    if (!mounted) return;
+    context.go('/home');
   }
 
   @override
@@ -28,7 +45,7 @@ class _SplashPageState extends State<SplashPage> {
           children: [
             const Icon(Icons.graphic_eq, size: 80, color: Colors.cyanAccent)
                 .animate()
-                .fadeIn(duration: 600.ms)
+                .fadeIn(duration: 300.ms)
                 .scale(),
             const SizedBox(height: 24),
             Text(
@@ -38,7 +55,7 @@ class _SplashPageState extends State<SplashPage> {
                     letterSpacing: 4,
                     fontWeight: FontWeight.bold,
                   ),
-            ).animate().fadeIn(delay: 400.ms, duration: 600.ms).slideY(begin: 0.2),
+            ).animate().fadeIn(delay: 150.ms, duration: 300.ms).slideY(begin: 0.2),
           ],
         ),
       ),

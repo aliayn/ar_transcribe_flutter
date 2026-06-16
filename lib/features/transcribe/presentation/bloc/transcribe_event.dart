@@ -8,6 +8,8 @@ part 'transcribe_event.freezed.dart';
 @freezed
 sealed class TranscribeEvent with _$TranscribeEvent {
   const factory TranscribeEvent.started(AppSettings settings) = TranscribeStarted;
+  const factory TranscribeEvent.connectionEstablished() =
+      TranscribeConnectionEstablished;
   const factory TranscribeEvent.connectionFailed(String message) =
       TranscribeConnectionFailed;
   const factory TranscribeEvent.transcriptReceived(String text, bool isFinal) =

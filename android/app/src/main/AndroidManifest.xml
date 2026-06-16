@@ -7,7 +7,7 @@
     <!-- Optional network access for model downloads or connected services. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- File access for persisted audio chunks/transcript exports on older Android versions. -->
+    <!-- File access for transcript exports on older Android versions. -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 

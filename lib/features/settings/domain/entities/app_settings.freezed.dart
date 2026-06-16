@@ -22,7 +22,6 @@ AppSettings _$AppSettingsFromJson(Map<String, dynamic> json) {
 mixin _$AppSettings {
   String get language => throw _privateConstructorUsedError;
   bool get darkMode => throw _privateConstructorUsedError;
-  int get chunkSeconds => throw _privateConstructorUsedError;
 
   /// Serializes this AppSettings to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,7 +39,7 @@ abstract class $AppSettingsCopyWith<$Res> {
           AppSettings value, $Res Function(AppSettings) then) =
       _$AppSettingsCopyWithImpl<$Res, AppSettings>;
   @useResult
-  $Res call({String language, bool darkMode, int chunkSeconds});
+  $Res call({String language, bool darkMode});
 }
 
 /// @nodoc
@@ -60,7 +59,6 @@ class _$AppSettingsCopyWithImpl<$Res, $Val extends AppSettings>
   $Res call({
     Object? language = null,
     Object? darkMode = null,
-    Object? chunkSeconds = null,
   }) {
     return _then(_value.copyWith(
       language: null == language
@@ -71,10 +69,6 @@ class _$AppSettingsCopyWithImpl<$Res, $Val extends AppSettings>
           ? _value.darkMode
           : darkMode // ignore: cast_nullable_to_non_nullable
               as bool,
-      chunkSeconds: null == chunkSeconds
-          ? _value.chunkSeconds
-          : chunkSeconds // ignore: cast_nullable_to_non_nullable
-              as int,
     ) as $Val);
   }
 }
@@ -87,7 +81,7 @@ abstract class _$$AppSettingsImplCopyWith<$Res>
       __$$AppSettingsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String language, bool darkMode, int chunkSeconds});
+  $Res call({String language, bool darkMode});
 }
 
 /// @nodoc
@@ -105,7 +99,6 @@ class __$$AppSettingsImplCopyWithImpl<$Res>
   $Res call({
     Object? language = null,
     Object? darkMode = null,
-    Object? chunkSeconds = null,
   }) {
     return _then(_$AppSettingsImpl(
       language: null == language
@@ -116,10 +109,6 @@ class __$$AppSettingsImplCopyWithImpl<$Res>
           ? _value.darkMode
           : darkMode // ignore: cast_nullable_to_non_nullable
               as bool,
-      chunkSeconds: null == chunkSeconds
-          ? _value.chunkSeconds
-          : chunkSeconds // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -127,8 +116,7 @@ class __$$AppSettingsImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$AppSettingsImpl implements _AppSettings {
-  const _$AppSettingsImpl(
-      {this.language = 'en', this.darkMode = true, this.chunkSeconds = 8});
+  const _$AppSettingsImpl({this.language = 'en', this.darkMode = true});
 
   factory _$AppSettingsImpl.fromJson(Map<String, dynamic> json) =>
       _$$AppSettingsImplFromJson(json);
@@ -139,13 +127,10 @@ class _$AppSettingsImpl implements _AppSettings {
   @override
   @JsonKey()
   final bool darkMode;
-  @override
-  @JsonKey()
-  final int chunkSeconds;
 
   @override
   String toString() {
-    return 'AppSettings(language: $language, darkMode: $darkMode, chunkSeconds: $chunkSeconds)';
+    return 'AppSettings(language: $language, darkMode: $darkMode)';
   }
 
   @override
@@ -156,15 +141,12 @@ class _$AppSettingsImpl implements _AppSettings {
             (identical(other.language, language) ||
                 other.language == language) &&
             (identical(other.darkMode, darkMode) ||
-                other.darkMode == darkMode) &&
-            (identical(other.chunkSeconds, chunkSeconds) ||
-                other.chunkSeconds == chunkSeconds));
+                other.darkMode == darkMode));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, language, darkMode, chunkSeconds);
+  int get hashCode => Object.hash(runtimeType, language, darkMode);
 
   /// Create a copy of AppSettings
   /// with the given fields replaced by the non-null parameter values.
@@ -183,10 +165,8 @@ class _$AppSettingsImpl implements _AppSettings {
 }
 
 abstract class _AppSettings implements AppSettings {
-  const factory _AppSettings(
-      {final String language,
-      final bool darkMode,
-      final int chunkSeconds}) = _$AppSettingsImpl;
+  const factory _AppSettings({final String language, final bool darkMode}) =
+      _$AppSettingsImpl;
 
   factory _AppSettings.fromJson(Map<String, dynamic> json) =
       _$AppSettingsImpl.fromJson;
@@ -195,8 +175,6 @@ abstract class _AppSettings implements AppSettings {
   String get language;
   @override
   bool get darkMode;
-  @override
-  int get chunkSeconds;
 
   /// Create a copy of AppSettings
   /// with the given fields replaced by the non-null parameter values.

@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -47,13 +49,27 @@ class _TranscribePageState extends State<TranscribePage> {
   }
 
   Future<void> _initCamera() async {
-    await Permission.microphone.request();
     final cameraStatus = await Permission.camera.request();
-    if (!cameraStatus.isGranted) return;
+    if (!cameraStatus.isGranted) {
+      if (!mounted) return;
+      final message = cameraStatus.isPermanentlyDenied
+          ? 'Camera permission denied. Enable it in Settings.'
+          : 'Camera permission is required for the AR preview.';
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message)),
+      );
+      return;
+    }
 
     try {
       final cameras = await availableCameras();
-      if (cameras.isEmpty) return;
+      if (cameras.isEmpty) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('No camera found on this device.')),
+        );
+        return;
+      }
 
       final back = cameras.firstWhere(
         (c) => c.lensDirection == CameraLensDirection.back,
@@ -64,15 +80,25 @@ class _TranscribePageState extends State<TranscribePage> {
         back,
         ResolutionPreset.medium,
         enableAudio: false,
+        imageFormatGroup: Platform.isIOS
+            ? ImageFormatGroup.bgra8888
+            : ImageFormatGroup.yuv420,
       );
       await controller.initialize();
-      if (!mounted) return;
+      if (!mounted) {
+        await controller.dispose();
+        return;
+      }
       setState(() {
         _cameraController = controller;
         _cameraReady = true;
       });
-    } catch (_) {
-      // Camera optional — overlay still works on black background.
+    } catch (error, stackTrace) {
+      debugPrint('Camera init failed: $error\n$stackTrace');
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not open camera.')),
+      );
     }
   }
 
