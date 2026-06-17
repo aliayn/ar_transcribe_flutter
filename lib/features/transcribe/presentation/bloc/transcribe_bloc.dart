@@ -52,7 +52,8 @@ class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
     if (!_transcriptionRepository.hasValidApiKeys) {
       emit(state.copyWith(
         status: SessionStatus.error,
-        errorMessage: 'Add DEEPGRAM_API_KEY to the .env file in the project root.',
+        errorType: TranscribeErrorType.missingDeepgramApiKey,
+        errorDetail: null,
       ));
       return;
     }
@@ -61,7 +62,8 @@ class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
     if (!hasPermission) {
       emit(state.copyWith(
         status: SessionStatus.error,
-        errorMessage: 'Microphone permission denied.',
+        errorType: TranscribeErrorType.microphonePermissionDenied,
+        errorDetail: null,
       ));
       return;
     }
@@ -77,7 +79,8 @@ class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
       session: session,
       isConnected: false,
       livePreviewText: '',
-      errorMessage: null,
+      errorType: null,
+      errorDetail: null,
     ));
 
     unawaited(_connectLiveTranscription());
@@ -111,7 +114,8 @@ class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
     emit(state.copyWith(
       status: SessionStatus.error,
       isConnected: false,
-      errorMessage: event.message,
+      errorType: TranscribeErrorType.connectionFailed,
+      errorDetail: event.message,
     ));
   }
 
@@ -167,7 +171,8 @@ class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
         status: SessionStatus.idle,
         isConnected: false,
         livePreviewText: '',
-        errorMessage: null,
+        errorType: null,
+        errorDetail: null,
       ));
       return;
     }
@@ -178,7 +183,8 @@ class TranscribeBloc extends Bloc<TranscribeEvent, TranscribeState> {
       session: session,
       isConnected: false,
       livePreviewText: '',
-      errorMessage: null,
+      errorType: null,
+      errorDetail: null,
     ));
 
     if (session.fullText.isNotEmpty) {

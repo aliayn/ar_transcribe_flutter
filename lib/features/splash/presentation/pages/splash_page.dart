@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ar_transcribe/gen_l10n/app_localizations.dart';
 
 import '../../../../core/startup/app_initializer.dart';
 
@@ -37,6 +38,7 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
@@ -49,7 +51,7 @@ class _SplashPageState extends State<SplashPage> {
                 .scale(),
             const SizedBox(height: 24),
             Text(
-              'AR Transcribe',
+              l10n.appTitle,
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     color: Colors.cyanAccent,
                     letterSpacing: 4,

@@ -26,5 +26,149 @@
   "routeNotFound": "Route not found",
   "@routeNotFound": {
     "description": "Fallback text when navigation fails and no error is available"
-  }
+  },
+  "overlayEmptyHint": "Point the camera at the screen and play audio…",
+  "@overlayEmptyHint": {
+    "description": "Placeholder when no transcript is shown on the AR overlay"
+  },
+  "statusLive": "Live",
+  "@statusLive": {
+    "description": "Label shown when transcription is actively running"
+  },
+  "statusStopped": "Stopped",
+  "@statusStopped": {
+    "description": "Label shown when transcription is not running"
+  },
+  "cameraPermissionDeniedPermanent": "Camera permission denied. Enable it in Settings.",
+  "@cameraPermissionDeniedPermanent": {
+    "description": "Snackbar when camera permission was permanently denied"
+  },
+  "cameraPermissionRequired": "Camera permission is required for the AR preview.",
+  "@cameraPermissionRequired": {
+    "description": "Snackbar when camera permission is missing"
+  },
+  "cameraNotFound": "No camera found on this device.",
+  "@cameraNotFound": {
+    "description": "Snackbar when the device has no camera"
+  },
+  "cameraOpenFailed": "Could not open camera.",
+  "@cameraOpenFailed": {
+    "description": "Snackbar when camera initialization fails"
+  },
+  "copiedToClipboard": "Copied to clipboard",
+  "@copiedToClipboard": {
+    "description": "Snackbar after copying transcript text"
+  },
+  "copiedShort": "Copied!",
+  "@copiedShort": {
+    "description": "Short snackbar after copying from history"
+  },
+  "historyTitle": "History",
+  "@historyTitle": {
+    "description": "History screen title"
+  },
+  "historyEmpty": "No sessions yet.",
+  "@historyEmpty": {
+    "description": "Empty state on the history screen"
+  },
+  "historyLoadFailed": "Could not load history.",
+  "@historyLoadFailed": {
+    "description": "Error message when session history fails to load"
+  },
+  "emptySession": "(empty session)",
+  "@emptySession": {
+    "description": "Placeholder for a session with no transcript text"
+  },
+  "copyAction": "Copy",
+  "@copyAction": {
+    "description": "Copy button label"
+  },
+  "shareAction": "Share",
+  "@shareAction": {
+    "description": "Share button label"
+  },
+  "errorMissingDeepgramApiKey": "Add DEEPGRAM_API_KEY to the .env file in the project root.",
+  "@errorMissingDeepgramApiKey": {
+    "description": "Error when Deepgram API key is not configured"
+  },
+  "errorMicrophonePermissionDenied": "Microphone permission denied.",
+  "@errorMicrophonePermissionDenied": {
+    "description": "Error when microphone permission is not granted"
+  },
+  "errorConnectionFailed": "Connection failed: {details}",
+  "@errorConnectionFailed": {
+    "description": "Error when live transcription connection fails",
+    "placeholders": {
+      "details": {
+        "type": "String",
+        "example": "WebSocket closed"
+      }
+    }
+  },
+  "languageAppEn": "English",
+  "languageAppFa": "فارسی",
+  "languageAppAr": "العربية",
+  "languageMulti": "Multilingual (auto-detect)",
+  "languageEnUs": "English (US)",
+  "languageEnGb": "English (UK)",
+  "languageEnAu": "English (Australia)",
+  "languageEnIn": "English (India)",
+  "languageEs": "Spanish",
+  "languageEs419": "Spanish (Latin America)",
+  "languageFr": "French",
+  "languageFrCa": "French (Canada)",
+  "languageDe": "German",
+  "languageDeCh": "German (Switzerland)",
+  "languageIt": "Italian",
+  "languagePt": "Portuguese",
+  "languagePtBr": "Portuguese (Brazil)",
+  "languagePtPt": "Portuguese (Portugal)",
+  "languageNl": "Dutch",
+  "languageNlBe": "Flemish",
+  "languageFa": "Persian",
+  "languageAr": "Arabic",
+  "languageHi": "Hindi",
+  "languageRu": "Russian",
+  "languageUk": "Ukrainian",
+  "languageTr": "Turkish",
+  "languageZh": "Chinese (Mandarin)",
+  "languageZhCn": "Chinese (Simplified)",
+  "languageZhTw": "Chinese (Traditional)",
+  "languageZhHk": "Chinese (Cantonese)",
+  "languageJa": "Japanese",
+  "languageKo": "Korean",
+  "languageVi": "Vietnamese",
+  "languageTh": "Thai",
+  "languageId": "Indonesian",
+  "languageMs": "Malay",
+  "languageTl": "Tagalog",
+  "languagePl": "Polish",
+  "languageCs": "Czech",
+  "languageSk": "Slovak",
+  "languageHu": "Hungarian",
+  "languageRo": "Romanian",
+  "languageBg": "Bulgarian",
+  "languageHr": "Croatian",
+  "languageSr": "Serbian",
+  "languageBs": "Bosnian",
+  "languageSl": "Slovenian",
+  "languageMk": "Macedonian",
+  "languageBe": "Belarusian",
+  "languageEl": "Greek",
+  "languageHe": "Hebrew",
+  "languageSv": "Swedish",
+  "languageDa": "Danish",
+  "languageFi": "Finnish",
+  "languageNo": "Norwegian",
+  "languageEt": "Estonian",
+  "languageLv": "Latvian",
+  "languageLt": "Lithuanian",
+  "languageCa": "Catalan",
+  "languageBn": "Bengali",
+  "languageGu": "Gujarati",
+  "languageKn": "Kannada",
+  "languageMr": "Marathi",
+  "languageTa": "Tamil",
+  "languageTe": "Telugu",
+  "languageUr": "Urdu"
 }

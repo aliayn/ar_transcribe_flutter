@@ -18,7 +18,7 @@ class ArTranscribeApp extends StatelessWidget {
       builder: (context, state) {
         final locale = state.settings.appLocale;
         return MaterialApp.router(
-          onGenerateTitle: (context) => AppLocalizations.of(context)?.appTitle ?? 'AR Transcribe',
+          onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
           debugShowCheckedModeBanner: false,
           routerConfig: appRouter,
           locale: Locale(locale),

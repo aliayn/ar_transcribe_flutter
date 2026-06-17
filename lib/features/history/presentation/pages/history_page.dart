@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:ar_transcribe/gen_l10n/app_localizations.dart';
 
 import '../../../../ui/core/adaptive_content.dart';
 import '../../../transcribe/domain/entities/transcribe_session.dart';
@@ -25,13 +26,14 @@ class _HistoryPageState extends State<HistoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: const Text(
-          'History',
-          style: TextStyle(color: Colors.cyanAccent, letterSpacing: 2),
+        title: Text(
+          l10n.historyTitle,
+          style: const TextStyle(color: Colors.cyanAccent, letterSpacing: 2),
         ),
         leading: const BackButton(color: Colors.white70),
       ),
@@ -46,17 +48,24 @@ class _HistoryPageState extends State<HistoryPage> {
                 child: CircularProgressIndicator(color: Colors.cyanAccent),
               ),
               loaded: (sessions) => sessions.isEmpty
-                  ? const Center(
-                      child: Text('No sessions yet.', style: TextStyle(color: Colors.white38)),
+                  ? Center(
+                      child: Text(
+                        l10n.historyEmpty,
+                        style: const TextStyle(color: Colors.white38),
+                      ),
                     )
                   : ListView.separated(
                       padding: const EdgeInsets.all(16),
                       itemCount: sessions.length,
                       separatorBuilder: (_, __) => const SizedBox(height: 12),
-                      itemBuilder: (context, index) => _SessionCard(session: sessions[index]),
+                      itemBuilder: (context, index) =>
+                          _SessionCard(session: sessions[index]),
                     ),
-              failure: (message) => Center(
-                child: Text(message, style: const TextStyle(color: Colors.redAccent)),
+              failure: (_) => Center(
+                child: Text(
+                  l10n.historyLoadFailed,
+                  style: const TextStyle(color: Colors.redAccent),
+                ),
               ),
             );
           },
@@ -73,7 +82,9 @@ class _SessionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fmt = DateFormat('MMM d, yyyy  HH:mm');
+    final l10n = AppLocalizations.of(context)!;
+    final locale = Localizations.localeOf(context).toString();
+    final fmt = DateFormat.yMMMd(locale).add_jm();
     final duration = session.duration;
     final durationLabel =
         '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
@@ -103,7 +114,7 @@ class _SessionCard extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            session.fullText.isEmpty ? '(empty session)' : session.fullText,
+            session.fullText.isEmpty ? l10n.emptySession : session.fullText,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -131,18 +142,18 @@ class _SessionCard extends StatelessWidget {
               children: [
                 TextButton.icon(
                   icon: const Icon(Icons.copy, size: 16),
-                  label: const Text('Copy'),
+                  label: Text(l10n.copyAction),
                   style: TextButton.styleFrom(foregroundColor: Colors.white54),
                   onPressed: () {
                     Clipboard.setData(ClipboardData(text: session.fullText));
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Copied!')),
+                      SnackBar(content: Text(l10n.copiedShort)),
                     );
                   },
                 ),
                 TextButton.icon(
                   icon: const Icon(Icons.share, size: 16),
-                  label: const Text('Share'),
+                  label: Text(l10n.shareAction),
                   style: TextButton.styleFrom(foregroundColor: Colors.white54),
                   onPressed: () {
                     final text = [

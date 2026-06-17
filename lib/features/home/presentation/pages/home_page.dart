@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ar_transcribe/gen_l10n/app_localizations.dart';
 
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/l10n/language_labels.dart';
 import '../../../../shared/widgets/language_selector.dart';
 import '../../../../ui/core/adaptive_content.dart';
 import '../../../settings/domain/entities/app_settings.dart';
@@ -96,7 +97,8 @@ class _HomeBody extends StatelessWidget {
         const SizedBox(height: 8),
         LanguageSelector(
           selected: settings.appLocale,
-          languages: AppConstants.supportedAppLocales,
+          languageCodes: AppConstants.supportedAppLocaleCodes,
+          labelFor: l10n.appLocaleName,
           onChanged: onAppLocaleChanged,
         ),
         const SizedBox(height: 24),
@@ -104,7 +106,8 @@ class _HomeBody extends StatelessWidget {
         const SizedBox(height: 8),
         LanguageSelector(
           selected: settings.language,
-          languages: AppConstants.deepgramLanguages,
+          languageCodes: AppConstants.transcriptionLanguageCodes,
+          labelFor: l10n.transcriptionLanguageName,
           onChanged: onTranscriptionLanguageChanged,
         ),
       ],

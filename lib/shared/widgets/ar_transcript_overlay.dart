@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:ar_transcribe/gen_l10n/app_localizations.dart';
 
 import '../../features/transcribe/domain/entities/transcript_segment.dart';
 
@@ -22,6 +23,7 @@ class ArTranscriptOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final visible = segments
         .where((s) => s.source == SegmentSource.deepgram)
         .map((s) => s.text.trim())
@@ -70,10 +72,10 @@ class ArTranscriptOverlay extends StatelessWidget {
                       isCurrent: true,
                     ),
                   if (capped.isEmpty && !showLive)
-                    const Text(
-                      'Point the camera at the screen and play audio…',
+                    Text(
+                      l10n.overlayEmptyHint,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white38, fontSize: 14),
+                      style: const TextStyle(color: Colors.white38, fontSize: 14),
                     ),
                 ],
               ),
@@ -100,7 +102,7 @@ class ArTranscriptOverlay extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      isConnected ? 'Live' : 'Stopped',
+                      isConnected ? l10n.statusLive : l10n.statusStopped,
                       style: const TextStyle(color: Colors.white70, fontSize: 13),
                     ),
                   ],

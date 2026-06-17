@@ -6,7 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:ar_transcribe/gen_l10n/app_localizations.dart';
 
+import '../../../../core/l10n/transcribe_error_messages.dart';
 import '../../../../shared/widgets/ar_transcript_overlay.dart';
 import '../../../settings/presentation/cubit/settings_cubit.dart';
 import '../bloc/transcribe_bloc.dart';
@@ -45,12 +47,13 @@ class _TranscribePageState extends State<TranscribePage> {
   }
 
   Future<void> _initCamera() async {
+    final l10n = AppLocalizations.of(context)!;
     final cameraStatus = await Permission.camera.request();
     if (!cameraStatus.isGranted) {
       if (!mounted) return;
       final message = cameraStatus.isPermanentlyDenied
-          ? 'Camera permission denied. Enable it in Settings.'
-          : 'Camera permission is required for the AR preview.';
+          ? l10n.cameraPermissionDeniedPermanent
+          : l10n.cameraPermissionRequired;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(message)),
       );
@@ -62,7 +65,7 @@ class _TranscribePageState extends State<TranscribePage> {
       if (cameras.isEmpty) {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('No camera found on this device.')),
+          SnackBar(content: Text(l10n.cameraNotFound)),
         );
         return;
       }
@@ -91,7 +94,7 @@ class _TranscribePageState extends State<TranscribePage> {
       debugPrint('Camera init failed: $error\n$stackTrace');
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Could not open camera.')),
+        SnackBar(content: Text(AppLocalizations.of(context)!.cameraOpenFailed)),
       );
     }
   }
@@ -110,17 +113,21 @@ class _TranscribePageState extends State<TranscribePage> {
   void _copyAll(String text) {
     Clipboard.setData(ClipboardData(text: text));
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Copied to clipboard')),
+      SnackBar(content: Text(AppLocalizations.of(context)!.copiedToClipboard)),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return BlocConsumer<TranscribeBloc, TranscribeState>(
-      listenWhen: (previous, current) => previous.errorMessage != current.errorMessage && current.errorMessage != null,
+      listenWhen: (previous, current) =>
+          previous.errorType != current.errorType && current.errorType != null,
       listener: (context, state) {
+        final message = localizedTranscribeError(l10n, state);
+        if (message == null) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(state.errorMessage!)),
+          SnackBar(content: Text(message)),
         );
       },
       builder: (context, state) {
@@ -216,6 +223,7 @@ class _TopBar extends StatefulWidget {
 class _TopBarState extends State<_TopBar> {
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Row(
@@ -231,7 +239,7 @@ class _TopBarState extends State<_TopBar> {
           ),
           const SizedBox(width: 8),
           Text(
-            widget.isLive ? 'Live' : 'Stopped',
+            widget.isLive ? l10n.statusLive : l10n.statusStopped,
             style: const TextStyle(color: Colors.white70, fontSize: 13),
           ),
           // const Spacer(),

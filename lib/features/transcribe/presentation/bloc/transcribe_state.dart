@@ -9,6 +9,12 @@ enum SessionStatus { idle, recording, processing, error }
 /// EN = Deepgram transcript, FA = Gemini translation (ar-transcribe mobile.html).
 enum ArDisplayMode { transcript, translation }
 
+enum TranscribeErrorType {
+  missingDeepgramApiKey,
+  microphonePermissionDenied,
+  connectionFailed,
+}
+
 @freezed
 class TranscribeState with _$TranscribeState {
   const factory TranscribeState({
@@ -16,7 +22,8 @@ class TranscribeState with _$TranscribeState {
     TranscribeSession? session,
     @Default('') String livePreviewText,
     @Default(ArDisplayMode.transcript) ArDisplayMode displayMode,
-    String? errorMessage,
+    TranscribeErrorType? errorType,
+    String? errorDetail,
     @Default(false) bool isConnected,
   }) = _TranscribeState;
 }

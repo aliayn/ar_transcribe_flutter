@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants/app_constants.dart';
-
 class LanguageSelector extends StatelessWidget {
   const LanguageSelector({
     super.key,
     required this.selected,
     required this.onChanged,
-    this.languages = AppConstants.deepgramLanguages,
+    required this.languageCodes,
+    required this.labelFor,
   });
 
   final String selected;
   final void Function(String) onChanged;
-  final List<Map<String, String>> languages;
+  final List<String> languageCodes;
+  final String Function(String code) labelFor;
 
   @override
   Widget build(BuildContext context) {
-    final effectiveSelected = languages.any((l) => l['code'] == selected)
+    final effectiveSelected = languageCodes.contains(selected)
         ? selected
-        : languages.first['code']!;
+        : languageCodes.first;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -32,12 +32,12 @@ class LanguageSelector extends StatelessWidget {
         underline: const SizedBox(),
         dropdownColor: const Color(0xFF0D0D1A),
         style: const TextStyle(color: Colors.white),
-        items: languages
+        items: languageCodes
             .map(
-              (lang) => DropdownMenuItem<String>(
-                value: lang['code']!,
+              (code) => DropdownMenuItem<String>(
+                value: code,
                 child: Text(
-                  lang['label']!,
+                  labelFor(code),
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
